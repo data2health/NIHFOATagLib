@@ -1,0 +1,6 @@
+
+	<function>
+		<name>guideDocCountByPrimary</name>
+		<function-class>edu.uiowa.nihfoa.guideDoc.GuideDocIteratorByPrimary</function-class>
+		<function-signature>java.lang.String guideDocCount(java.lang.String)</function-signature>
+	</function>
