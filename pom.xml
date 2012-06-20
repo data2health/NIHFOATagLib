@@ -75,7 +75,7 @@
                <props>
                   <property>
                      <name>generator.enabled</name>
-                     <value>false</value>
+                     <value>true</value>
                   </property>
                   <property>
                      <name>project.name</name>

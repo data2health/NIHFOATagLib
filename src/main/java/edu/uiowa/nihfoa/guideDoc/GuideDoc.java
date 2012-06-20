@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.Vector;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import java.util.Date;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspTagException;
@@ -32,7 +33,7 @@ public class GuideDoc extends NIHFOATagLibTagSupport {
 	String relNote = null;
 	String faDirectCosts = null;
 	String guideLink = null;
-	String relDate = null;
+	Date relDate = null;
 	String intentDate = null;
 	String appReceiptDate = null;
 	String lard = null;
@@ -77,7 +78,7 @@ public class GuideDoc extends NIHFOATagLibTagSupport {
 					if (guideLink == null)
 						guideLink = rs.getString(6);
 					if (relDate == null)
-						relDate = rs.getString(7);
+						relDate = rs.getTimestamp(7);
 					if (intentDate == null)
 						intentDate = rs.getString(8);
 					if (appReceiptDate == null)
@@ -120,7 +121,7 @@ public class GuideDoc extends NIHFOATagLibTagSupport {
 				stmt.setString(4,relNote);
 				stmt.setString(5,faDirectCosts);
 				stmt.setString(6,guideLink);
-				stmt.setString(7,relDate);
+				stmt.setTimestamp(7,relDate == null ? null : new java.sql.Timestamp(relDate.getTime()));
 				stmt.setString(8,intentDate);
 				stmt.setString(9,appReceiptDate);
 				stmt.setString(10,lard);
@@ -161,8 +162,6 @@ public class GuideDoc extends NIHFOATagLibTagSupport {
 				faDirectCosts = "";
 			if (guideLink == null)
 				guideLink = "";
-			if (relDate == null)
-				relDate = "";
 			if (intentDate == null)
 				intentDate = "";
 			if (appReceiptDate == null)
@@ -185,7 +184,7 @@ public class GuideDoc extends NIHFOATagLibTagSupport {
 			stmt.setString(5,relNote);
 			stmt.setString(6,faDirectCosts);
 			stmt.setString(7,guideLink);
-			stmt.setString(8,relDate);
+			stmt.setTimestamp(8,relDate == null ? null : new java.sql.Timestamp(relDate.getTime()));
 			stmt.setString(9,intentDate);
 			stmt.setString(10,appReceiptDate);
 			stmt.setString(11,lard);
@@ -311,20 +310,22 @@ public class GuideDoc extends NIHFOATagLibTagSupport {
 		return guideLink;
 	}
 
-	public String getRelDate () {
-		if (commitNeeded)
-			return "";
-		else
-			return relDate;
+	public Date getRelDate () {
+		return relDate;
 	}
 
-	public void setRelDate (String relDate) {
+	public void setRelDate (Date relDate) {
 		this.relDate = relDate;
 		commitNeeded = true;
 	}
 
-	public String getActualRelDate () {
+	public Date getActualRelDate () {
 		return relDate;
+	}
+
+	public void setRelDateToNow ( ) {
+		this.relDate = new java.util.Date();
+		commitNeeded = true;
 	}
 
 	public String getIntentDate () {
@@ -495,7 +496,7 @@ public class GuideDoc extends NIHFOATagLibTagSupport {
 		}
 	}
 
-	public static String relDateValue() throws JspException {
+	public static Date relDateValue() throws JspException {
 		try {
 			return currentInstance.getRelDate();
 		} catch (Exception e) {

@@ -47,6 +47,7 @@ src/main/java/edu/uiowa/nihfoa/guideDoc/GuideDocLard.java svneol=native#text/x-j
 src/main/java/edu/uiowa/nihfoa/guideDoc/GuideDocPrimaryIc.java svneol=native#text/x-java-source
 src/main/java/edu/uiowa/nihfoa/guideDoc/GuideDocPurpose.java svneol=native#text/x-java-source
 src/main/java/edu/uiowa/nihfoa/guideDoc/GuideDocRelDate.java svneol=native#text/x-java-source
+src/main/java/edu/uiowa/nihfoa/guideDoc/GuideDocRelDateToNow.java svneol=native#text/x-java-source
 src/main/java/edu/uiowa/nihfoa/guideDoc/GuideDocRelNote.java svneol=native#text/x-java-source
 src/main/java/edu/uiowa/nihfoa/guideDoc/GuideDocTitle.java svneol=native#text/x-java-source
 src/main/java/edu/uiowa/nihfoa/interest/Interest.java svneol=native#text/x-java-source

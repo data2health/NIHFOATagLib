@@ -173,6 +173,42 @@
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
+
+		<attribute>
+			<name>type</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+
+		<attribute>
+			<name>dateStyle</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+
+		<attribute>
+			<name>timeStyle</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+
+		<attribute>
+			<name>pattern</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+
+	<tag>
+		<name>guideDocRelDateToNow</name>
+		<tag-class>edu.uiowa.nihfoa.guideDoc.GuideDocRelDateToNow</tag-class>
+		<body-content>empty</body-content>
+
+		<attribute>
+			<name>relDate</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
 	</tag>
 
 	<tag>
@@ -1141,7 +1177,7 @@
 	<function>
 		<name>guideDocRelDateValue</name>
 		<function-class>edu.uiowa.nihfoa.guideDoc.GuideDoc</function-class>
-		<function-signature>java.lang.String relDateValue()</function-signature>
+		<function-signature>java.lang.Date relDateValue()</function-signature>
 	</function>
 
 	<function>

@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
+import java.util.Date;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspTagException;
@@ -22,7 +23,7 @@ public class GuideDocDeleter extends NIHFOATagLibBodyTagSupport {
     String relNote = null;
     String faDirectCosts = null;
     String guideLink = null;
-    String relDate = null;
+    Date relDate = null;
     String intentDate = null;
     String appReceiptDate = null;
     String lard = null;

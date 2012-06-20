@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.Vector;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import java.util.Date;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspTagException;
@@ -24,7 +25,7 @@ public class GuideDocIterator extends NIHFOATagLibBodyTagSupport {
     String relNote = null;
     String faDirectCosts = null;
     String guideLink = null;
-    String relDate = null;
+    Date relDate = null;
     String intentDate = null;
     String appReceiptDate = null;
     String lard = null;
