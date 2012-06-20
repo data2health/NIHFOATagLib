@@ -245,6 +245,42 @@
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
+
+		<attribute>
+			<name>type</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+
+		<attribute>
+			<name>dateStyle</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+
+		<attribute>
+			<name>timeStyle</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+
+		<attribute>
+			<name>pattern</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+
+	<tag>
+		<name>guideDocLardToNow</name>
+		<tag-class>edu.uiowa.nihfoa.guideDoc.GuideDocLardToNow</tag-class>
+		<body-content>empty</body-content>
+
+		<attribute>
+			<name>lard</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
 	</tag>
 
 	<tag>
@@ -286,6 +322,42 @@
 	<tag>
 		<name>guideDocExpirationDate</name>
 		<tag-class>edu.uiowa.nihfoa.guideDoc.GuideDocExpirationDate</tag-class>
+		<body-content>empty</body-content>
+
+		<attribute>
+			<name>expirationDate</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+
+		<attribute>
+			<name>type</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+
+		<attribute>
+			<name>dateStyle</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+
+		<attribute>
+			<name>timeStyle</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+
+		<attribute>
+			<name>pattern</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+
+	<tag>
+		<name>guideDocExpirationDateToNow</name>
+		<tag-class>edu.uiowa.nihfoa.guideDoc.GuideDocExpirationDateToNow</tag-class>
 		<body-content>empty</body-content>
 
 		<attribute>
@@ -1195,7 +1267,7 @@
 	<function>
 		<name>guideDocLardValue</name>
 		<function-class>edu.uiowa.nihfoa.guideDoc.GuideDoc</function-class>
-		<function-signature>java.lang.String lardValue()</function-signature>
+		<function-signature>java.lang.Date lardValue()</function-signature>
 	</function>
 
 	<function>
@@ -1219,7 +1291,7 @@
 	<function>
 		<name>guideDocExpirationDateValue</name>
 		<function-class>edu.uiowa.nihfoa.guideDoc.GuideDoc</function-class>
-		<function-signature>java.lang.String expirationDateValue()</function-signature>
+		<function-signature>java.lang.Date expirationDateValue()</function-signature>
 	</function>
 
 	<function>

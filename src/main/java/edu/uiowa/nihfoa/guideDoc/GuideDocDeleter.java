@@ -26,11 +26,11 @@ public class GuideDocDeleter extends NIHFOATagLibBodyTagSupport {
     Date relDate = null;
     String intentDate = null;
     String appReceiptDate = null;
-    String lard = null;
+    Date lard = null;
     String fileName = null;
     String docType = null;
     String docNum = null;
-    String expirationDate = null;
+    Date expirationDate = null;
 	Vector<NIHFOATagLibTagSupport> parentEntities = new Vector<NIHFOATagLibTagSupport>();
 
 

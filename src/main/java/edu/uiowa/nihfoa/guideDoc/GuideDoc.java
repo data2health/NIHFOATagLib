@@ -36,11 +36,11 @@ public class GuideDoc extends NIHFOATagLibTagSupport {
 	Date relDate = null;
 	String intentDate = null;
 	String appReceiptDate = null;
-	String lard = null;
+	Date lard = null;
 	String fileName = null;
 	String docType = null;
 	String docNum = null;
-	String expirationDate = null;
+	Date expirationDate = null;
 
 	public int doStartTag() throws JspException {
 		currentInstance = this;
@@ -84,7 +84,7 @@ public class GuideDoc extends NIHFOATagLibTagSupport {
 					if (appReceiptDate == null)
 						appReceiptDate = rs.getString(9);
 					if (lard == null)
-						lard = rs.getString(10);
+						lard = rs.getTimestamp(10);
 					if (fileName == null)
 						fileName = rs.getString(11);
 					if (docType == null)
@@ -92,7 +92,7 @@ public class GuideDoc extends NIHFOATagLibTagSupport {
 					if (docNum == null)
 						docNum = rs.getString(13);
 					if (expirationDate == null)
-						expirationDate = rs.getString(14);
+						expirationDate = rs.getTimestamp(14);
 					found = true;
 				}
 				stmt.close();
@@ -124,11 +124,11 @@ public class GuideDoc extends NIHFOATagLibTagSupport {
 				stmt.setTimestamp(7,relDate == null ? null : new java.sql.Timestamp(relDate.getTime()));
 				stmt.setString(8,intentDate);
 				stmt.setString(9,appReceiptDate);
-				stmt.setString(10,lard);
+				stmt.setTimestamp(10,lard == null ? null : new java.sql.Timestamp(lard.getTime()));
 				stmt.setString(11,fileName);
 				stmt.setString(12,docType);
 				stmt.setString(13,docNum);
-				stmt.setString(14,expirationDate);
+				stmt.setTimestamp(14,expirationDate == null ? null : new java.sql.Timestamp(expirationDate.getTime()));
 				stmt.setInt(15,ID);
 				stmt.executeUpdate();
 				stmt.close();
@@ -166,16 +166,12 @@ public class GuideDoc extends NIHFOATagLibTagSupport {
 				intentDate = "";
 			if (appReceiptDate == null)
 				appReceiptDate = "";
-			if (lard == null)
-				lard = "";
 			if (fileName == null)
 				fileName = "";
 			if (docType == null)
 				docType = "";
 			if (docNum == null)
 				docNum = "";
-			if (expirationDate == null)
-				expirationDate = "";
 			PreparedStatement stmt = getConnection().prepareStatement("insert into NIH_FOA.guide_doc(id,primary_ic,title,purpose,rel_note,fa_direct_costs,guide_link,rel_date,intent_date,app_receipt_date,lard,file_name,doc_type,doc_num,expiration_date) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 			stmt.setInt(1,ID);
 			stmt.setString(2,primaryIc);
@@ -187,11 +183,11 @@ public class GuideDoc extends NIHFOATagLibTagSupport {
 			stmt.setTimestamp(8,relDate == null ? null : new java.sql.Timestamp(relDate.getTime()));
 			stmt.setString(9,intentDate);
 			stmt.setString(10,appReceiptDate);
-			stmt.setString(11,lard);
+			stmt.setTimestamp(11,lard == null ? null : new java.sql.Timestamp(lard.getTime()));
 			stmt.setString(12,fileName);
 			stmt.setString(13,docType);
 			stmt.setString(14,docNum);
-			stmt.setString(15,expirationDate);
+			stmt.setTimestamp(15,expirationDate == null ? null : new java.sql.Timestamp(expirationDate.getTime()));
 			stmt.executeUpdate();
 			stmt.close();
 		} catch (SQLException e) {
@@ -360,20 +356,22 @@ public class GuideDoc extends NIHFOATagLibTagSupport {
 		return appReceiptDate;
 	}
 
-	public String getLard () {
-		if (commitNeeded)
-			return "";
-		else
-			return lard;
+	public Date getLard () {
+		return lard;
 	}
 
-	public void setLard (String lard) {
+	public void setLard (Date lard) {
 		this.lard = lard;
 		commitNeeded = true;
 	}
 
-	public String getActualLard () {
+	public Date getActualLard () {
 		return lard;
+	}
+
+	public void setLardToNow ( ) {
+		this.lard = new java.util.Date();
+		commitNeeded = true;
 	}
 
 	public String getFileName () {
@@ -424,20 +422,22 @@ public class GuideDoc extends NIHFOATagLibTagSupport {
 		return docNum;
 	}
 
-	public String getExpirationDate () {
-		if (commitNeeded)
-			return "";
-		else
-			return expirationDate;
+	public Date getExpirationDate () {
+		return expirationDate;
 	}
 
-	public void setExpirationDate (String expirationDate) {
+	public void setExpirationDate (Date expirationDate) {
 		this.expirationDate = expirationDate;
 		commitNeeded = true;
 	}
 
-	public String getActualExpirationDate () {
+	public Date getActualExpirationDate () {
 		return expirationDate;
+	}
+
+	public void setExpirationDateToNow ( ) {
+		this.expirationDate = new java.util.Date();
+		commitNeeded = true;
 	}
 
 	public static int IDValue() throws JspException {
@@ -520,7 +520,7 @@ public class GuideDoc extends NIHFOATagLibTagSupport {
 		}
 	}
 
-	public static String lardValue() throws JspException {
+	public static Date lardValue() throws JspException {
 		try {
 			return currentInstance.getLard();
 		} catch (Exception e) {
@@ -552,7 +552,7 @@ public class GuideDoc extends NIHFOATagLibTagSupport {
 		}
 	}
 
-	public static String expirationDateValue() throws JspException {
+	public static Date expirationDateValue() throws JspException {
 		try {
 			return currentInstance.getExpirationDate();
 		} catch (Exception e) {
