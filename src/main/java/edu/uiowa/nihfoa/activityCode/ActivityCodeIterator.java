@@ -17,13 +17,12 @@ import edu.uiowa.nihfoa.guideDoc.GuideDoc;
 import edu.uiowa.nihfoa.foaType.FoaType;
 
 @SuppressWarnings("serial")
-
 public class ActivityCodeIterator extends NIHFOATagLibBodyTagSupport {
     int ID = 0;
     String code = null;
 	Vector<NIHFOATagLibTagSupport> parentEntities = new Vector<NIHFOATagLibTagSupport>();
 
-	private static final Log log =LogFactory.getLog(ActivityCode.class);
+	private static final Log log = LogFactory.getLog(ActivityCodeIterator.class);
 
 
     PreparedStatement stat = null;
@@ -52,7 +51,7 @@ public class ActivityCodeIterator extends NIHFOATagLibBodyTagSupport {
 			}
 			stat.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			log.error("JDBC error generating ActivityCode iterator", e);
 			throw new JspTagException("Error: JDBC error generating ActivityCode iterator");
 		} finally {
 			theIterator.freeConnection();
@@ -80,7 +79,7 @@ public class ActivityCodeIterator extends NIHFOATagLibBodyTagSupport {
 			}
 			stat.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			log.error("JDBC error generating ActivityCode iterator", e);
 			throw new JspTagException("Error: JDBC error generating ActivityCode iterator");
 		} finally {
 			theIterator.freeConnection();
@@ -110,7 +109,7 @@ public class ActivityCodeIterator extends NIHFOATagLibBodyTagSupport {
 			}
 			stat.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			log.error("JDBC error generating ActivityCode iterator", e);
 			throw new JspTagException("Error: JDBC error generating ActivityCode iterator");
 		} finally {
 			theIterator.freeConnection();
@@ -136,7 +135,7 @@ public class ActivityCodeIterator extends NIHFOATagLibBodyTagSupport {
 			}
 			stat.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			log.error("JDBC error generating ActivityCode iterator", e);
 			throw new JspTagException("Error: JDBC error generating ActivityCode iterator");
 		} finally {
 			theIterator.freeConnection();
@@ -163,7 +162,24 @@ public class ActivityCodeIterator extends NIHFOATagLibBodyTagSupport {
 
 
       try {
+            //run count query  
             int webapp_keySeq = 1;
+            stat = getConnection().prepareStatement("SELECT count(*) from " + generateFromClause() + " where 1=1"
+                                                        + generateJoinCriteria()
+                                                        + (ID == 0 ? "" : " and id = ?")
+                                                        + (code == null ? "" : " and code = ?")
+                                                        +  generateLimitCriteria());
+            if (ID != 0) stat.setInt(webapp_keySeq++, ID);
+            if (code != null) stat.setString(webapp_keySeq++, code);
+            rs = stat.executeQuery();
+
+            if (rs.next()) {
+                pageContext.setAttribute(var+"Total", rs.getInt(1));
+            }
+
+
+            //run select id query  
+            webapp_keySeq = 1;
             stat = getConnection().prepareStatement("SELECT NIH_FOA.activity_code.id, NIH_FOA.activity_code.code from " + generateFromClause() + " where 1=1"
                                                         + generateJoinCriteria()
                                                         + (ID == 0 ? "" : " and id = ?")
@@ -180,7 +196,7 @@ public class ActivityCodeIterator extends NIHFOATagLibBodyTagSupport {
                 return EVAL_BODY_INCLUDE;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error("JDBC error generating ActivityCode iterator: " + stat.toString(), e);
             clearServiceState();
             freeConnection();
             throw new JspTagException("Error: JDBC error generating ActivityCode iterator: " + stat.toString());
@@ -234,7 +250,7 @@ public class ActivityCodeIterator extends NIHFOATagLibBodyTagSupport {
                 return EVAL_BODY_AGAIN;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error("JDBC error iterating across ActivityCode", e);
             clearServiceState();
             freeConnection();
             throw new JspTagException("Error: JDBC error iterating across ActivityCode");
@@ -247,7 +263,7 @@ public class ActivityCodeIterator extends NIHFOATagLibBodyTagSupport {
             rs.close();
             stat.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error("JDBC error ending ActivityCode iterator",e);
             throw new JspTagException("Error: JDBC error ending ActivityCode iterator");
         } finally {
             clearServiceState();

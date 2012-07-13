@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import java.util.Date;
 
 import javax.servlet.jsp.JspException;
@@ -14,7 +16,6 @@ import edu.uiowa.nihfoa.NIHFOATagLibTagSupport;
 import edu.uiowa.nihfoa.NIHFOATagLibBodyTagSupport;
 
 @SuppressWarnings("serial")
-
 public class GuideDocDeleter extends NIHFOATagLibBodyTagSupport {
     int ID = 0;
     String primaryIc = null;
@@ -33,6 +34,8 @@ public class GuideDocDeleter extends NIHFOATagLibBodyTagSupport {
     Date expirationDate = null;
 	Vector<NIHFOATagLibTagSupport> parentEntities = new Vector<NIHFOATagLibTagSupport>();
 
+	private static final Log log = LogFactory.getLog(GuideDocDeleter.class);
+
 
     ResultSet rs = null;
     String var = null;
@@ -46,13 +49,13 @@ public class GuideDocDeleter extends NIHFOATagLibBodyTagSupport {
         try {
             int webapp_keySeq = 1;
             stat = getConnection().prepareStatement("DELETE from NIH_FOA.guide_doc where 1=1"
-                                                        + (ID == 0 ? "" : " and id = ?")
-                                                        );
+                                                        + (ID == 0 ? "" : " and id = ? "));
             if (ID != 0) stat.setInt(webapp_keySeq++, ID);
             stat.execute();
 
+			webapp_keySeq = 1;
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error("JDBC error generating GuideDoc deleter", e);
             clearServiceState();
             throw new JspTagException("Error: JDBC error generating GuideDoc deleter");
         } finally {

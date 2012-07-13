@@ -15,7 +15,6 @@ import edu.uiowa.nihfoa.NIHFOATagLibTagSupport;
 import edu.uiowa.nihfoa.NIHFOATagLibBodyTagSupport;
 
 @SuppressWarnings("serial")
-
 public class FoaTypeIterator extends NIHFOATagLibBodyTagSupport {
     String code = null;
     String category = null;
@@ -24,7 +23,7 @@ public class FoaTypeIterator extends NIHFOATagLibBodyTagSupport {
     String infoLink = null;
 	Vector<NIHFOATagLibTagSupport> parentEntities = new Vector<NIHFOATagLibTagSupport>();
 
-	private static final Log log =LogFactory.getLog(FoaType.class);
+	private static final Log log = LogFactory.getLog(FoaTypeIterator.class);
 
 
     PreparedStatement stat = null;
@@ -48,7 +47,7 @@ public class FoaTypeIterator extends NIHFOATagLibBodyTagSupport {
 			}
 			stat.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			log.error("JDBC error generating FoaType iterator", e);
 			throw new JspTagException("Error: JDBC error generating FoaType iterator");
 		} finally {
 			theIterator.freeConnection();
@@ -72,7 +71,7 @@ public class FoaTypeIterator extends NIHFOATagLibBodyTagSupport {
 			}
 			stat.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			log.error("JDBC error generating FoaType iterator", e);
 			throw new JspTagException("Error: JDBC error generating FoaType iterator");
 		} finally {
 			theIterator.freeConnection();
@@ -85,7 +84,20 @@ public class FoaTypeIterator extends NIHFOATagLibBodyTagSupport {
 
 
       try {
+            //run count query  
             int webapp_keySeq = 1;
+            stat = getConnection().prepareStatement("SELECT count(*) from " + generateFromClause() + " where 1=1"
+                                                        + generateJoinCriteria()
+                                                        +  generateLimitCriteria());
+            rs = stat.executeQuery();
+
+            if (rs.next()) {
+                pageContext.setAttribute(var+"Total", rs.getInt(1));
+            }
+
+
+            //run select id query  
+            webapp_keySeq = 1;
             stat = getConnection().prepareStatement("SELECT NIH_FOA.foa_type.code from " + generateFromClause() + " where 1=1"
                                                         + generateJoinCriteria()
                                                         + " order by " + generateSortCriteria() + generateLimitCriteria());
@@ -97,7 +109,7 @@ public class FoaTypeIterator extends NIHFOATagLibBodyTagSupport {
                 return EVAL_BODY_INCLUDE;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error("JDBC error generating FoaType iterator: " + stat.toString(), e);
             clearServiceState();
             freeConnection();
             throw new JspTagException("Error: JDBC error generating FoaType iterator: " + stat.toString());
@@ -140,7 +152,7 @@ public class FoaTypeIterator extends NIHFOATagLibBodyTagSupport {
                 return EVAL_BODY_AGAIN;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error("JDBC error iterating across FoaType", e);
             clearServiceState();
             freeConnection();
             throw new JspTagException("Error: JDBC error iterating across FoaType");
@@ -153,7 +165,7 @@ public class FoaTypeIterator extends NIHFOATagLibBodyTagSupport {
             rs.close();
             stat.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error("JDBC error ending FoaType iterator",e);
             throw new JspTagException("Error: JDBC error ending FoaType iterator");
         } finally {
             clearServiceState();

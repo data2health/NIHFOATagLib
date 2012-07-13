@@ -15,13 +15,12 @@ import edu.uiowa.nihfoa.NIHFOATagLibTagSupport;
 import edu.uiowa.nihfoa.NIHFOATagLibBodyTagSupport;
 
 @SuppressWarnings("serial")
-
 public class ContentIterator extends NIHFOATagLibBodyTagSupport {
     int ID = 0;
     String html = null;
 	Vector<NIHFOATagLibTagSupport> parentEntities = new Vector<NIHFOATagLibTagSupport>();
 
-	private static final Log log =LogFactory.getLog(Content.class);
+	private static final Log log = LogFactory.getLog(ContentIterator.class);
 
 
     PreparedStatement stat = null;
@@ -45,7 +44,7 @@ public class ContentIterator extends NIHFOATagLibBodyTagSupport {
 			}
 			stat.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			log.error("JDBC error generating Content iterator", e);
 			throw new JspTagException("Error: JDBC error generating Content iterator");
 		} finally {
 			theIterator.freeConnection();
@@ -69,7 +68,7 @@ public class ContentIterator extends NIHFOATagLibBodyTagSupport {
 			}
 			stat.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			log.error("JDBC error generating Content iterator", e);
 			throw new JspTagException("Error: JDBC error generating Content iterator");
 		} finally {
 			theIterator.freeConnection();
@@ -82,7 +81,20 @@ public class ContentIterator extends NIHFOATagLibBodyTagSupport {
 
 
       try {
+            //run count query  
             int webapp_keySeq = 1;
+            stat = getConnection().prepareStatement("SELECT count(*) from " + generateFromClause() + " where 1=1"
+                                                        + generateJoinCriteria()
+                                                        +  generateLimitCriteria());
+            rs = stat.executeQuery();
+
+            if (rs.next()) {
+                pageContext.setAttribute(var+"Total", rs.getInt(1));
+            }
+
+
+            //run select id query  
+            webapp_keySeq = 1;
             stat = getConnection().prepareStatement("SELECT NIH_FOA.content.id from " + generateFromClause() + " where 1=1"
                                                         + generateJoinCriteria()
                                                         + " order by " + generateSortCriteria() + generateLimitCriteria());
@@ -94,7 +106,7 @@ public class ContentIterator extends NIHFOATagLibBodyTagSupport {
                 return EVAL_BODY_INCLUDE;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error("JDBC error generating Content iterator: " + stat.toString(), e);
             clearServiceState();
             freeConnection();
             throw new JspTagException("Error: JDBC error generating Content iterator: " + stat.toString());
@@ -137,7 +149,7 @@ public class ContentIterator extends NIHFOATagLibBodyTagSupport {
                 return EVAL_BODY_AGAIN;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error("JDBC error iterating across Content", e);
             clearServiceState();
             freeConnection();
             throw new JspTagException("Error: JDBC error iterating across Content");
@@ -150,7 +162,7 @@ public class ContentIterator extends NIHFOATagLibBodyTagSupport {
             rs.close();
             stat.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error("JDBC error ending Content iterator",e);
             throw new JspTagException("Error: JDBC error ending Content iterator");
         } finally {
             clearServiceState();

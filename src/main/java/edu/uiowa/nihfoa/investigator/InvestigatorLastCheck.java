@@ -5,6 +5,8 @@ import javax.servlet.jsp.JspTagException;
 import java.util.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import edu.uiowa.nihfoa.NIHFOATagLibTagSupport;
 
@@ -14,6 +16,8 @@ public class InvestigatorLastCheck extends NIHFOATagLibTagSupport {
 	String dateStyle = "DEFAULT";
 	String timeStyle = "DEFAULT";
 	String pattern = null;
+	private static final Log log = LogFactory.getLog(InvestigatorLastCheck.class);
+
 
 	public int doStartTag() throws JspException {
 		try {
@@ -36,7 +40,7 @@ public class InvestigatorLastCheck extends NIHFOATagLibTagSupport {
 				pageContext.getOut().print(resultString);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error("Can't find enclosing Investigator for lastCheck tag ", e);
 			throw new JspTagException("Error: Can't find enclosing Investigator for lastCheck tag ");
 		}
 		return SKIP_BODY;
@@ -47,7 +51,7 @@ public class InvestigatorLastCheck extends NIHFOATagLibTagSupport {
 			Investigator theInvestigator = (Investigator)findAncestorWithClass(this, Investigator.class);
 			return theInvestigator.getLastCheck();
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(" Can't find enclosing Investigator for lastCheck tag ", e);
 			throw new JspTagException("Error: Can't find enclosing Investigator for lastCheck tag ");
 		}
 	}
@@ -57,7 +61,7 @@ public class InvestigatorLastCheck extends NIHFOATagLibTagSupport {
 			Investigator theInvestigator = (Investigator)findAncestorWithClass(this, Investigator.class);
 			theInvestigator.setLastCheck(lastCheck);
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error("Can't find enclosing Investigator for lastCheck tag ", e);
 			throw new JspTagException("Error: Can't find enclosing Investigator for lastCheck tag ");
 		}
 	}

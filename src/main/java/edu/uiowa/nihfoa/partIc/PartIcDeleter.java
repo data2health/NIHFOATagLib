@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspTagException;
@@ -15,11 +17,12 @@ import edu.uiowa.nihfoa.guideDoc.GuideDoc;
 import edu.uiowa.nihfoa.nihIc.NihIc;
 
 @SuppressWarnings("serial")
-
 public class PartIcDeleter extends NIHFOATagLibBodyTagSupport {
     int ID = 0;
     String ic = null;
 	Vector<NIHFOATagLibTagSupport> parentEntities = new Vector<NIHFOATagLibTagSupport>();
+
+	private static final Log log = LogFactory.getLog(PartIcDeleter.class);
 
 
     ResultSet rs = null;
@@ -48,15 +51,15 @@ public class PartIcDeleter extends NIHFOATagLibBodyTagSupport {
         try {
             int webapp_keySeq = 1;
             stat = getConnection().prepareStatement("DELETE from NIH_FOA.part_ic where 1=1"
-                                                        + (ID == 0 ? "" : " and id = ?")
-                                                        + (ic == null ? "" : " and ic = ?")
-                                                        );
+                                                        + (ID == 0 ? "" : " and id = ? ")
+                                                        + (ic == null ? "" : " and ic = ? "));
             if (ID != 0) stat.setInt(webapp_keySeq++, ID);
             if (ic != null) stat.setString(webapp_keySeq++, ic);
             stat.execute();
 
+			webapp_keySeq = 1;
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error("JDBC error generating PartIc deleter", e);
             clearServiceState();
             throw new JspTagException("Error: JDBC error generating PartIc deleter");
         } finally {

@@ -5,6 +5,8 @@ import javax.servlet.jsp.JspTagException;
 import java.util.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import edu.uiowa.nihfoa.NIHFOATagLibTagSupport;
 
@@ -14,6 +16,8 @@ public class GuideDocExpirationDate extends NIHFOATagLibTagSupport {
 	String dateStyle = "DEFAULT";
 	String timeStyle = "DEFAULT";
 	String pattern = null;
+	private static final Log log = LogFactory.getLog(GuideDocExpirationDate.class);
+
 
 	public int doStartTag() throws JspException {
 		try {
@@ -36,7 +40,7 @@ public class GuideDocExpirationDate extends NIHFOATagLibTagSupport {
 				pageContext.getOut().print(resultString);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error("Can't find enclosing GuideDoc for expirationDate tag ", e);
 			throw new JspTagException("Error: Can't find enclosing GuideDoc for expirationDate tag ");
 		}
 		return SKIP_BODY;
@@ -47,7 +51,7 @@ public class GuideDocExpirationDate extends NIHFOATagLibTagSupport {
 			GuideDoc theGuideDoc = (GuideDoc)findAncestorWithClass(this, GuideDoc.class);
 			return theGuideDoc.getExpirationDate();
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(" Can't find enclosing GuideDoc for expirationDate tag ", e);
 			throw new JspTagException("Error: Can't find enclosing GuideDoc for expirationDate tag ");
 		}
 	}
@@ -57,7 +61,7 @@ public class GuideDocExpirationDate extends NIHFOATagLibTagSupport {
 			GuideDoc theGuideDoc = (GuideDoc)findAncestorWithClass(this, GuideDoc.class);
 			theGuideDoc.setExpirationDate(expirationDate);
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error("Can't find enclosing GuideDoc for expirationDate tag ", e);
 			throw new JspTagException("Error: Can't find enclosing GuideDoc for expirationDate tag ");
 		}
 	}

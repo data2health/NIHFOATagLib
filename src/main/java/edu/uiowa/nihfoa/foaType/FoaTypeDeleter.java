@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspTagException;
@@ -13,7 +15,6 @@ import edu.uiowa.nihfoa.NIHFOATagLibTagSupport;
 import edu.uiowa.nihfoa.NIHFOATagLibBodyTagSupport;
 
 @SuppressWarnings("serial")
-
 public class FoaTypeDeleter extends NIHFOATagLibBodyTagSupport {
     String code = null;
     String category = null;
@@ -21,6 +22,8 @@ public class FoaTypeDeleter extends NIHFOATagLibBodyTagSupport {
     String description = null;
     String infoLink = null;
 	Vector<NIHFOATagLibTagSupport> parentEntities = new Vector<NIHFOATagLibTagSupport>();
+
+	private static final Log log = LogFactory.getLog(FoaTypeDeleter.class);
 
 
     ResultSet rs = null;
@@ -35,13 +38,13 @@ public class FoaTypeDeleter extends NIHFOATagLibBodyTagSupport {
         try {
             int webapp_keySeq = 1;
             stat = getConnection().prepareStatement("DELETE from NIH_FOA.foa_type where 1=1"
-                                                        + (code == null ? "" : " and code = ?")
-                                                        );
+                                                        + (code == null ? "" : " and code = ? "));
             if (code != null) stat.setString(webapp_keySeq++, code);
             stat.execute();
 
+			webapp_keySeq = 1;
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error("JDBC error generating FoaType deleter", e);
             clearServiceState();
             throw new JspTagException("Error: JDBC error generating FoaType deleter");
         } finally {

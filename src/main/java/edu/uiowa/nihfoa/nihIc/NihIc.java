@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -13,14 +14,13 @@ import javax.servlet.jsp.JspTagException;
 import edu.uiowa.nihfoa.NIHFOATagLibTagSupport;
 
 @SuppressWarnings("serial")
-
 public class NihIc extends NIHFOATagLibTagSupport {
 
 	static NihIc currentInstance = null;
 	boolean commitNeeded = false;
 	boolean newRecord = false;
 
-	private static final Log log =LogFactory.getLog(NihIc.class);
+	private static final Log log = LogFactory.getLog(NihIc.class);
 
 	Vector<NIHFOATagLibTagSupport> parentEntities = new Vector<NIHFOATagLibTagSupport>();
 
@@ -45,7 +45,6 @@ public class NihIc extends NIHFOATagLibTagSupport {
 			if (theNihIcIterator == null && ic == null) {
 				// no ic was provided - the default is to assume that it is a new NihIc and to generate a new ic
 				ic = null;
-				log.debug("generating new NihIc " + ic);
 				insertEntity();
 			} else {
 				// an iterator or ic was provided as an attribute - we need to load a NihIc from the database
@@ -73,7 +72,7 @@ public class NihIc extends NIHFOATagLibTagSupport {
 				}
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			log.error("JDBC error retrieving ic " + ic, e);
 			throw new JspTagException("Error: JDBC error retrieving ic " + ic);
 		} finally {
 			freeConnection();
@@ -96,7 +95,7 @@ public class NihIc extends NIHFOATagLibTagSupport {
 				stmt.close();
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			log.error("Error: IOException while writing to the user", e);
 			throw new JspTagException("Error: IOException while writing to the user");
 		} finally {
 			clearServiceState();
@@ -127,7 +126,7 @@ public class NihIc extends NIHFOATagLibTagSupport {
 			stmt.executeUpdate();
 			stmt.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			log.error("Error: IOException while writing to the user", e);
 			throw new JspTagException("Error: IOException while writing to the user");
 		} finally {
 			freeConnection();

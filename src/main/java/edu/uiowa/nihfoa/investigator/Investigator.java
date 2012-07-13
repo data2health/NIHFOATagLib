@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import java.util.Date;
@@ -15,14 +16,13 @@ import edu.uiowa.nihfoa.NIHFOATagLibTagSupport;
 import edu.uiowa.nihfoa.Sequence;
 
 @SuppressWarnings("serial")
-
 public class Investigator extends NIHFOATagLibTagSupport {
 
 	static Investigator currentInstance = null;
 	boolean commitNeeded = false;
 	boolean newRecord = false;
 
-	private static final Log log =LogFactory.getLog(Investigator.class);
+	private static final Log log = LogFactory.getLog(Investigator.class);
 
 	Vector<NIHFOATagLibTagSupport> parentEntities = new Vector<NIHFOATagLibTagSupport>();
 
@@ -44,7 +44,6 @@ public class Investigator extends NIHFOATagLibTagSupport {
 			if (theInvestigatorIterator == null && uid == 0) {
 				// no uid was provided - the default is to assume that it is a new Investigator and to generate a new uid
 				uid = Sequence.generateID();
-				log.debug("generating new Investigator " + uid);
 				insertEntity();
 			} else {
 				// an iterator or uid was provided as an attribute - we need to load a Investigator from the database
@@ -66,7 +65,7 @@ public class Investigator extends NIHFOATagLibTagSupport {
 				}
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			log.error("JDBC error retrieving uid " + uid, e);
 			throw new JspTagException("Error: JDBC error retrieving uid " + uid);
 		} finally {
 			freeConnection();
@@ -86,7 +85,7 @@ public class Investigator extends NIHFOATagLibTagSupport {
 				stmt.close();
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			log.error("Error: IOException while writing to the user", e);
 			throw new JspTagException("Error: IOException while writing to the user");
 		} finally {
 			clearServiceState();
@@ -111,7 +110,7 @@ public class Investigator extends NIHFOATagLibTagSupport {
 			stmt.executeUpdate();
 			stmt.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			log.error("Error: IOException while writing to the user", e);
 			throw new JspTagException("Error: IOException while writing to the user");
 		} finally {
 			freeConnection();
@@ -164,7 +163,7 @@ public class Investigator extends NIHFOATagLibTagSupport {
 		commitNeeded = true;
 	}
 
-	public static int uidValue() throws JspException {
+	public static Integer uidValue() throws JspException {
 		try {
 			return currentInstance.getUid();
 		} catch (Exception e) {

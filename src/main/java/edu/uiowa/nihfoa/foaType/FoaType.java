@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -13,14 +14,13 @@ import javax.servlet.jsp.JspTagException;
 import edu.uiowa.nihfoa.NIHFOATagLibTagSupport;
 
 @SuppressWarnings("serial")
-
 public class FoaType extends NIHFOATagLibTagSupport {
 
 	static FoaType currentInstance = null;
 	boolean commitNeeded = false;
 	boolean newRecord = false;
 
-	private static final Log log =LogFactory.getLog(FoaType.class);
+	private static final Log log = LogFactory.getLog(FoaType.class);
 
 	Vector<NIHFOATagLibTagSupport> parentEntities = new Vector<NIHFOATagLibTagSupport>();
 
@@ -44,7 +44,6 @@ public class FoaType extends NIHFOATagLibTagSupport {
 			if (theFoaTypeIterator == null && code == null) {
 				// no code was provided - the default is to assume that it is a new FoaType and to generate a new code
 				code = null;
-				log.debug("generating new FoaType " + code);
 				insertEntity();
 			} else {
 				// an iterator or code was provided as an attribute - we need to load a FoaType from the database
@@ -70,7 +69,7 @@ public class FoaType extends NIHFOATagLibTagSupport {
 				}
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			log.error("JDBC error retrieving code " + code, e);
 			throw new JspTagException("Error: JDBC error retrieving code " + code);
 		} finally {
 			freeConnection();
@@ -92,7 +91,7 @@ public class FoaType extends NIHFOATagLibTagSupport {
 				stmt.close();
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			log.error("Error: IOException while writing to the user", e);
 			throw new JspTagException("Error: IOException while writing to the user");
 		} finally {
 			clearServiceState();
@@ -120,7 +119,7 @@ public class FoaType extends NIHFOATagLibTagSupport {
 			stmt.executeUpdate();
 			stmt.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			log.error("Error: IOException while writing to the user", e);
 			throw new JspTagException("Error: IOException while writing to the user");
 		} finally {
 			freeConnection();

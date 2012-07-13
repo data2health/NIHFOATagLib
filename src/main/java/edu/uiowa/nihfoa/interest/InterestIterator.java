@@ -17,13 +17,12 @@ import edu.uiowa.nihfoa.guideDoc.GuideDoc;
 import edu.uiowa.nihfoa.investigator.Investigator;
 
 @SuppressWarnings("serial")
-
 public class InterestIterator extends NIHFOATagLibBodyTagSupport {
     int uid = 0;
     int ID = 0;
 	Vector<NIHFOATagLibTagSupport> parentEntities = new Vector<NIHFOATagLibTagSupport>();
 
-	private static final Log log =LogFactory.getLog(Interest.class);
+	private static final Log log = LogFactory.getLog(InterestIterator.class);
 
 
     PreparedStatement stat = null;
@@ -52,7 +51,7 @@ public class InterestIterator extends NIHFOATagLibBodyTagSupport {
 			}
 			stat.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			log.error("JDBC error generating Interest iterator", e);
 			throw new JspTagException("Error: JDBC error generating Interest iterator");
 		} finally {
 			theIterator.freeConnection();
@@ -80,7 +79,7 @@ public class InterestIterator extends NIHFOATagLibBodyTagSupport {
 			}
 			stat.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			log.error("JDBC error generating Interest iterator", e);
 			throw new JspTagException("Error: JDBC error generating Interest iterator");
 		} finally {
 			theIterator.freeConnection();
@@ -110,7 +109,7 @@ public class InterestIterator extends NIHFOATagLibBodyTagSupport {
 			}
 			stat.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			log.error("JDBC error generating Interest iterator", e);
 			throw new JspTagException("Error: JDBC error generating Interest iterator");
 		} finally {
 			theIterator.freeConnection();
@@ -136,7 +135,7 @@ public class InterestIterator extends NIHFOATagLibBodyTagSupport {
 			}
 			stat.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			log.error("JDBC error generating Interest iterator", e);
 			throw new JspTagException("Error: JDBC error generating Interest iterator");
 		} finally {
 			theIterator.freeConnection();
@@ -163,7 +162,24 @@ public class InterestIterator extends NIHFOATagLibBodyTagSupport {
 
 
       try {
+            //run count query  
             int webapp_keySeq = 1;
+            stat = getConnection().prepareStatement("SELECT count(*) from " + generateFromClause() + " where 1=1"
+                                                        + generateJoinCriteria()
+                                                        + (ID == 0 ? "" : " and id = ?")
+                                                        + (uid == 0 ? "" : " and uid = ?")
+                                                        +  generateLimitCriteria());
+            if (ID != 0) stat.setInt(webapp_keySeq++, ID);
+            if (uid != 0) stat.setInt(webapp_keySeq++, uid);
+            rs = stat.executeQuery();
+
+            if (rs.next()) {
+                pageContext.setAttribute(var+"Total", rs.getInt(1));
+            }
+
+
+            //run select id query  
+            webapp_keySeq = 1;
             stat = getConnection().prepareStatement("SELECT NIH_FOA.interest.uid, NIH_FOA.interest.id from " + generateFromClause() + " where 1=1"
                                                         + generateJoinCriteria()
                                                         + (ID == 0 ? "" : " and id = ?")
@@ -180,7 +196,7 @@ public class InterestIterator extends NIHFOATagLibBodyTagSupport {
                 return EVAL_BODY_INCLUDE;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error("JDBC error generating Interest iterator: " + stat.toString(), e);
             clearServiceState();
             freeConnection();
             throw new JspTagException("Error: JDBC error generating Interest iterator: " + stat.toString());
@@ -234,7 +250,7 @@ public class InterestIterator extends NIHFOATagLibBodyTagSupport {
                 return EVAL_BODY_AGAIN;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error("JDBC error iterating across Interest", e);
             clearServiceState();
             freeConnection();
             throw new JspTagException("Error: JDBC error iterating across Interest");
@@ -247,7 +263,7 @@ public class InterestIterator extends NIHFOATagLibBodyTagSupport {
             rs.close();
             stat.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error("JDBC error ending Interest iterator",e);
             throw new JspTagException("Error: JDBC error ending Interest iterator");
         } finally {
             clearServiceState();

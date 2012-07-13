@@ -16,14 +16,13 @@ import edu.uiowa.nihfoa.NIHFOATagLibTagSupport;
 import edu.uiowa.nihfoa.NIHFOATagLibBodyTagSupport;
 
 @SuppressWarnings("serial")
-
 public class InvestigatorIterator extends NIHFOATagLibBodyTagSupport {
     int uid = 0;
     String mode = null;
     Date lastCheck = null;
 	Vector<NIHFOATagLibTagSupport> parentEntities = new Vector<NIHFOATagLibTagSupport>();
 
-	private static final Log log =LogFactory.getLog(Investigator.class);
+	private static final Log log = LogFactory.getLog(InvestigatorIterator.class);
 
 
     PreparedStatement stat = null;
@@ -47,7 +46,7 @@ public class InvestigatorIterator extends NIHFOATagLibBodyTagSupport {
 			}
 			stat.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			log.error("JDBC error generating Investigator iterator", e);
 			throw new JspTagException("Error: JDBC error generating Investigator iterator");
 		} finally {
 			theIterator.freeConnection();
@@ -71,7 +70,7 @@ public class InvestigatorIterator extends NIHFOATagLibBodyTagSupport {
 			}
 			stat.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			log.error("JDBC error generating Investigator iterator", e);
 			throw new JspTagException("Error: JDBC error generating Investigator iterator");
 		} finally {
 			theIterator.freeConnection();
@@ -84,7 +83,20 @@ public class InvestigatorIterator extends NIHFOATagLibBodyTagSupport {
 
 
       try {
+            //run count query  
             int webapp_keySeq = 1;
+            stat = getConnection().prepareStatement("SELECT count(*) from " + generateFromClause() + " where 1=1"
+                                                        + generateJoinCriteria()
+                                                        +  generateLimitCriteria());
+            rs = stat.executeQuery();
+
+            if (rs.next()) {
+                pageContext.setAttribute(var+"Total", rs.getInt(1));
+            }
+
+
+            //run select id query  
+            webapp_keySeq = 1;
             stat = getConnection().prepareStatement("SELECT NIH_FOA.investigator.uid from " + generateFromClause() + " where 1=1"
                                                         + generateJoinCriteria()
                                                         + " order by " + generateSortCriteria() + generateLimitCriteria());
@@ -96,7 +108,7 @@ public class InvestigatorIterator extends NIHFOATagLibBodyTagSupport {
                 return EVAL_BODY_INCLUDE;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error("JDBC error generating Investigator iterator: " + stat.toString(), e);
             clearServiceState();
             freeConnection();
             throw new JspTagException("Error: JDBC error generating Investigator iterator: " + stat.toString());
@@ -139,7 +151,7 @@ public class InvestigatorIterator extends NIHFOATagLibBodyTagSupport {
                 return EVAL_BODY_AGAIN;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error("JDBC error iterating across Investigator", e);
             clearServiceState();
             freeConnection();
             throw new JspTagException("Error: JDBC error iterating across Investigator");
@@ -152,7 +164,7 @@ public class InvestigatorIterator extends NIHFOATagLibBodyTagSupport {
             rs.close();
             stat.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error("JDBC error ending Investigator iterator",e);
             throw new JspTagException("Error: JDBC error ending Investigator iterator");
         } finally {
             clearServiceState();

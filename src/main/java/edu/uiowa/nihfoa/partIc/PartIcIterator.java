@@ -17,13 +17,12 @@ import edu.uiowa.nihfoa.guideDoc.GuideDoc;
 import edu.uiowa.nihfoa.nihIc.NihIc;
 
 @SuppressWarnings("serial")
-
 public class PartIcIterator extends NIHFOATagLibBodyTagSupport {
     int ID = 0;
     String ic = null;
 	Vector<NIHFOATagLibTagSupport> parentEntities = new Vector<NIHFOATagLibTagSupport>();
 
-	private static final Log log =LogFactory.getLog(PartIc.class);
+	private static final Log log = LogFactory.getLog(PartIcIterator.class);
 
 
     PreparedStatement stat = null;
@@ -52,7 +51,7 @@ public class PartIcIterator extends NIHFOATagLibBodyTagSupport {
 			}
 			stat.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			log.error("JDBC error generating PartIc iterator", e);
 			throw new JspTagException("Error: JDBC error generating PartIc iterator");
 		} finally {
 			theIterator.freeConnection();
@@ -80,7 +79,7 @@ public class PartIcIterator extends NIHFOATagLibBodyTagSupport {
 			}
 			stat.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			log.error("JDBC error generating PartIc iterator", e);
 			throw new JspTagException("Error: JDBC error generating PartIc iterator");
 		} finally {
 			theIterator.freeConnection();
@@ -110,7 +109,7 @@ public class PartIcIterator extends NIHFOATagLibBodyTagSupport {
 			}
 			stat.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			log.error("JDBC error generating PartIc iterator", e);
 			throw new JspTagException("Error: JDBC error generating PartIc iterator");
 		} finally {
 			theIterator.freeConnection();
@@ -136,7 +135,7 @@ public class PartIcIterator extends NIHFOATagLibBodyTagSupport {
 			}
 			stat.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			log.error("JDBC error generating PartIc iterator", e);
 			throw new JspTagException("Error: JDBC error generating PartIc iterator");
 		} finally {
 			theIterator.freeConnection();
@@ -163,7 +162,24 @@ public class PartIcIterator extends NIHFOATagLibBodyTagSupport {
 
 
       try {
+            //run count query  
             int webapp_keySeq = 1;
+            stat = getConnection().prepareStatement("SELECT count(*) from " + generateFromClause() + " where 1=1"
+                                                        + generateJoinCriteria()
+                                                        + (ID == 0 ? "" : " and id = ?")
+                                                        + (ic == null ? "" : " and ic = ?")
+                                                        +  generateLimitCriteria());
+            if (ID != 0) stat.setInt(webapp_keySeq++, ID);
+            if (ic != null) stat.setString(webapp_keySeq++, ic);
+            rs = stat.executeQuery();
+
+            if (rs.next()) {
+                pageContext.setAttribute(var+"Total", rs.getInt(1));
+            }
+
+
+            //run select id query  
+            webapp_keySeq = 1;
             stat = getConnection().prepareStatement("SELECT NIH_FOA.part_ic.id, NIH_FOA.part_ic.ic from " + generateFromClause() + " where 1=1"
                                                         + generateJoinCriteria()
                                                         + (ID == 0 ? "" : " and id = ?")
@@ -180,7 +196,7 @@ public class PartIcIterator extends NIHFOATagLibBodyTagSupport {
                 return EVAL_BODY_INCLUDE;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error("JDBC error generating PartIc iterator: " + stat.toString(), e);
             clearServiceState();
             freeConnection();
             throw new JspTagException("Error: JDBC error generating PartIc iterator: " + stat.toString());
@@ -234,7 +250,7 @@ public class PartIcIterator extends NIHFOATagLibBodyTagSupport {
                 return EVAL_BODY_AGAIN;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error("JDBC error iterating across PartIc", e);
             clearServiceState();
             freeConnection();
             throw new JspTagException("Error: JDBC error iterating across PartIc");
@@ -247,7 +263,7 @@ public class PartIcIterator extends NIHFOATagLibBodyTagSupport {
             rs.close();
             stat.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error("JDBC error ending PartIc iterator",e);
             throw new JspTagException("Error: JDBC error ending PartIc iterator");
         } finally {
             clearServiceState();

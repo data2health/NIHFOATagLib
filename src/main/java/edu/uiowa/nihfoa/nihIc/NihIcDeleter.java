@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspTagException;
@@ -13,7 +15,6 @@ import edu.uiowa.nihfoa.NIHFOATagLibTagSupport;
 import edu.uiowa.nihfoa.NIHFOATagLibBodyTagSupport;
 
 @SuppressWarnings("serial")
-
 public class NihIcDeleter extends NIHFOATagLibBodyTagSupport {
     String ic = null;
     String title = null;
@@ -22,6 +23,8 @@ public class NihIcDeleter extends NIHFOATagLibBodyTagSupport {
     String infoLink = null;
     String category = null;
 	Vector<NIHFOATagLibTagSupport> parentEntities = new Vector<NIHFOATagLibTagSupport>();
+
+	private static final Log log = LogFactory.getLog(NihIcDeleter.class);
 
 
     ResultSet rs = null;
@@ -36,13 +39,13 @@ public class NihIcDeleter extends NIHFOATagLibBodyTagSupport {
         try {
             int webapp_keySeq = 1;
             stat = getConnection().prepareStatement("DELETE from NIH_FOA.nih_ic where 1=1"
-                                                        + (ic == null ? "" : " and ic = ?")
-                                                        );
+                                                        + (ic == null ? "" : " and ic = ? "));
             if (ic != null) stat.setString(webapp_keySeq++, ic);
             stat.execute();
 
+			webapp_keySeq = 1;
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error("JDBC error generating NihIc deleter", e);
             clearServiceState();
             throw new JspTagException("Error: JDBC error generating NihIc deleter");
         } finally {

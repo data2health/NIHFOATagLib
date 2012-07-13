@@ -2,11 +2,15 @@ package edu.uiowa.nihfoa.foaType;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspTagException;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import edu.uiowa.nihfoa.NIHFOATagLibTagSupport;
 
 @SuppressWarnings("serial")
 public class FoaTypeCode extends NIHFOATagLibTagSupport {
+	private static final Log log = LogFactory.getLog(FoaTypeCode.class);
+
 
 	public int doStartTag() throws JspException {
 		try {
@@ -15,7 +19,7 @@ public class FoaTypeCode extends NIHFOATagLibTagSupport {
 				pageContext.getOut().print(theFoaType.getCode());
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error("Can't find enclosing FoaType for code tag ", e);
 			throw new JspTagException("Error: Can't find enclosing FoaType for code tag ");
 		}
 		return SKIP_BODY;
@@ -26,7 +30,7 @@ public class FoaTypeCode extends NIHFOATagLibTagSupport {
 			FoaType theFoaType = (FoaType)findAncestorWithClass(this, FoaType.class);
 			return theFoaType.getCode();
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(" Can't find enclosing FoaType for code tag ", e);
 			throw new JspTagException("Error: Can't find enclosing FoaType for code tag ");
 		}
 	}
@@ -36,7 +40,7 @@ public class FoaTypeCode extends NIHFOATagLibTagSupport {
 			FoaType theFoaType = (FoaType)findAncestorWithClass(this, FoaType.class);
 			theFoaType.setCode(code);
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error("Can't find enclosing FoaType for code tag ", e);
 			throw new JspTagException("Error: Can't find enclosing FoaType for code tag ");
 		}
 	}

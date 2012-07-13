@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -14,14 +15,13 @@ import edu.uiowa.nihfoa.NIHFOATagLibTagSupport;
 import edu.uiowa.nihfoa.Sequence;
 
 @SuppressWarnings("serial")
-
 public class Content extends NIHFOATagLibTagSupport {
 
 	static Content currentInstance = null;
 	boolean commitNeeded = false;
 	boolean newRecord = false;
 
-	private static final Log log =LogFactory.getLog(Content.class);
+	private static final Log log = LogFactory.getLog(Content.class);
 
 	Vector<NIHFOATagLibTagSupport> parentEntities = new Vector<NIHFOATagLibTagSupport>();
 
@@ -42,7 +42,6 @@ public class Content extends NIHFOATagLibTagSupport {
 			if (theContentIterator == null && ID == 0) {
 				// no ID was provided - the default is to assume that it is a new Content and to generate a new ID
 				ID = Sequence.generateID();
-				log.debug("generating new Content " + ID);
 				insertEntity();
 			} else {
 				// an iterator or ID was provided as an attribute - we need to load a Content from the database
@@ -62,7 +61,7 @@ public class Content extends NIHFOATagLibTagSupport {
 				}
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			log.error("JDBC error retrieving ID " + ID, e);
 			throw new JspTagException("Error: JDBC error retrieving ID " + ID);
 		} finally {
 			freeConnection();
@@ -81,7 +80,7 @@ public class Content extends NIHFOATagLibTagSupport {
 				stmt.close();
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			log.error("Error: IOException while writing to the user", e);
 			throw new JspTagException("Error: IOException while writing to the user");
 		} finally {
 			clearServiceState();
@@ -105,7 +104,7 @@ public class Content extends NIHFOATagLibTagSupport {
 			stmt.executeUpdate();
 			stmt.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			log.error("Error: IOException while writing to the user", e);
 			throw new JspTagException("Error: IOException while writing to the user");
 		} finally {
 			freeConnection();
@@ -140,7 +139,7 @@ public class Content extends NIHFOATagLibTagSupport {
 		return html;
 	}
 
-	public static int IDValue() throws JspException {
+	public static Integer IDValue() throws JspException {
 		try {
 			return currentInstance.getID();
 		} catch (Exception e) {

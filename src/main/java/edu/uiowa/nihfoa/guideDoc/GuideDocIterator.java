@@ -16,7 +16,6 @@ import edu.uiowa.nihfoa.NIHFOATagLibTagSupport;
 import edu.uiowa.nihfoa.NIHFOATagLibBodyTagSupport;
 
 @SuppressWarnings("serial")
-
 public class GuideDocIterator extends NIHFOATagLibBodyTagSupport {
     int ID = 0;
     String primaryIc = null;
@@ -35,7 +34,7 @@ public class GuideDocIterator extends NIHFOATagLibBodyTagSupport {
     Date expirationDate = null;
 	Vector<NIHFOATagLibTagSupport> parentEntities = new Vector<NIHFOATagLibTagSupport>();
 
-	private static final Log log =LogFactory.getLog(GuideDoc.class);
+	private static final Log log = LogFactory.getLog(GuideDocIterator.class);
 
 
     PreparedStatement stat = null;
@@ -59,7 +58,7 @@ public class GuideDocIterator extends NIHFOATagLibBodyTagSupport {
 			}
 			stat.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			log.error("JDBC error generating GuideDoc iterator", e);
 			throw new JspTagException("Error: JDBC error generating GuideDoc iterator");
 		} finally {
 			theIterator.freeConnection();
@@ -83,7 +82,7 @@ public class GuideDocIterator extends NIHFOATagLibBodyTagSupport {
 			}
 			stat.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			log.error("JDBC error generating GuideDoc iterator", e);
 			throw new JspTagException("Error: JDBC error generating GuideDoc iterator");
 		} finally {
 			theIterator.freeConnection();
@@ -96,7 +95,20 @@ public class GuideDocIterator extends NIHFOATagLibBodyTagSupport {
 
 
       try {
+            //run count query  
             int webapp_keySeq = 1;
+            stat = getConnection().prepareStatement("SELECT count(*) from " + generateFromClause() + " where 1=1"
+                                                        + generateJoinCriteria()
+                                                        +  generateLimitCriteria());
+            rs = stat.executeQuery();
+
+            if (rs.next()) {
+                pageContext.setAttribute(var+"Total", rs.getInt(1));
+            }
+
+
+            //run select id query  
+            webapp_keySeq = 1;
             stat = getConnection().prepareStatement("SELECT NIH_FOA.guide_doc.id from " + generateFromClause() + " where 1=1"
                                                         + generateJoinCriteria()
                                                         + " order by " + generateSortCriteria() + generateLimitCriteria());
@@ -108,7 +120,7 @@ public class GuideDocIterator extends NIHFOATagLibBodyTagSupport {
                 return EVAL_BODY_INCLUDE;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error("JDBC error generating GuideDoc iterator: " + stat.toString(), e);
             clearServiceState();
             freeConnection();
             throw new JspTagException("Error: JDBC error generating GuideDoc iterator: " + stat.toString());
@@ -151,7 +163,7 @@ public class GuideDocIterator extends NIHFOATagLibBodyTagSupport {
                 return EVAL_BODY_AGAIN;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error("JDBC error iterating across GuideDoc", e);
             clearServiceState();
             freeConnection();
             throw new JspTagException("Error: JDBC error iterating across GuideDoc");
@@ -164,7 +176,7 @@ public class GuideDocIterator extends NIHFOATagLibBodyTagSupport {
             rs.close();
             stat.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error("JDBC error ending GuideDoc iterator",e);
             throw new JspTagException("Error: JDBC error ending GuideDoc iterator");
         } finally {
             clearServiceState();

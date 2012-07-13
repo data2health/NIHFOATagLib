@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspTagException;
@@ -15,11 +17,12 @@ import edu.uiowa.nihfoa.guideDoc.GuideDoc;
 import edu.uiowa.nihfoa.foaType.FoaType;
 
 @SuppressWarnings("serial")
-
 public class ActivityCodeDeleter extends NIHFOATagLibBodyTagSupport {
     int ID = 0;
     String code = null;
 	Vector<NIHFOATagLibTagSupport> parentEntities = new Vector<NIHFOATagLibTagSupport>();
+
+	private static final Log log = LogFactory.getLog(ActivityCodeDeleter.class);
 
 
     ResultSet rs = null;
@@ -48,15 +51,15 @@ public class ActivityCodeDeleter extends NIHFOATagLibBodyTagSupport {
         try {
             int webapp_keySeq = 1;
             stat = getConnection().prepareStatement("DELETE from NIH_FOA.activity_code where 1=1"
-                                                        + (ID == 0 ? "" : " and id = ?")
-                                                        + (code == null ? "" : " and code = ?")
-                                                        );
+                                                        + (ID == 0 ? "" : " and id = ? ")
+                                                        + (code == null ? "" : " and code = ? "));
             if (ID != 0) stat.setInt(webapp_keySeq++, ID);
             if (code != null) stat.setString(webapp_keySeq++, code);
             stat.execute();
 
+			webapp_keySeq = 1;
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error("JDBC error generating ActivityCode deleter", e);
             clearServiceState();
             throw new JspTagException("Error: JDBC error generating ActivityCode deleter");
         } finally {

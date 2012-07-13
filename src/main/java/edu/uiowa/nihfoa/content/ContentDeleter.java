@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspTagException;
@@ -13,11 +15,12 @@ import edu.uiowa.nihfoa.NIHFOATagLibTagSupport;
 import edu.uiowa.nihfoa.NIHFOATagLibBodyTagSupport;
 
 @SuppressWarnings("serial")
-
 public class ContentDeleter extends NIHFOATagLibBodyTagSupport {
     int ID = 0;
     String html = null;
 	Vector<NIHFOATagLibTagSupport> parentEntities = new Vector<NIHFOATagLibTagSupport>();
+
+	private static final Log log = LogFactory.getLog(ContentDeleter.class);
 
 
     ResultSet rs = null;
@@ -32,13 +35,13 @@ public class ContentDeleter extends NIHFOATagLibBodyTagSupport {
         try {
             int webapp_keySeq = 1;
             stat = getConnection().prepareStatement("DELETE from NIH_FOA.content where 1=1"
-                                                        + (ID == 0 ? "" : " and id = ?")
-                                                        );
+                                                        + (ID == 0 ? "" : " and id = ? "));
             if (ID != 0) stat.setInt(webapp_keySeq++, ID);
             stat.execute();
 
+			webapp_keySeq = 1;
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error("JDBC error generating Content deleter", e);
             clearServiceState();
             throw new JspTagException("Error: JDBC error generating Content deleter");
         } finally {

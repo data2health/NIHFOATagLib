@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -16,14 +17,13 @@ import edu.uiowa.nihfoa.NIHFOATagLibTagSupport;
 import edu.uiowa.nihfoa.Sequence;
 
 @SuppressWarnings("serial")
-
 public class PartIc extends NIHFOATagLibTagSupport {
 
 	static PartIc currentInstance = null;
 	boolean commitNeeded = false;
 	boolean newRecord = false;
 
-	private static final Log log =LogFactory.getLog(PartIc.class);
+	private static final Log log = LogFactory.getLog(PartIc.class);
 
 	Vector<NIHFOATagLibTagSupport> parentEntities = new Vector<NIHFOATagLibTagSupport>();
 
@@ -59,7 +59,6 @@ public class PartIc extends NIHFOATagLibTagSupport {
 			if (thePartIcIterator == null && theGuideDoc == null && theNihIc == null && ID == 0) {
 				// no ID was provided - the default is to assume that it is a new PartIc and to generate a new ID
 				ID = Sequence.generateID();
-				log.debug("generating new PartIc " + ID);
 				insertEntity();
 			} else if (thePartIcIterator == null && theGuideDoc != null && theNihIc == null) {
 				// an ID was provided as an attribute - we need to load a PartIc from the database
@@ -110,7 +109,7 @@ public class PartIc extends NIHFOATagLibTagSupport {
 				}
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			log.error("JDBC error retrieving ID " + ID, e);
 			throw new JspTagException("Error: JDBC error retrieving ID " + ID);
 		} finally {
 			freeConnection();
@@ -129,7 +128,7 @@ public class PartIc extends NIHFOATagLibTagSupport {
 				stmt.close();
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			log.error("Error: IOException while writing to the user", e);
 			throw new JspTagException("Error: IOException while writing to the user");
 		} finally {
 			clearServiceState();
@@ -146,7 +145,7 @@ public class PartIc extends NIHFOATagLibTagSupport {
 			stmt.executeUpdate();
 			stmt.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			log.error("Error: IOException while writing to the user", e);
 			throw new JspTagException("Error: IOException while writing to the user");
 		} finally {
 			freeConnection();
@@ -180,7 +179,7 @@ public class PartIc extends NIHFOATagLibTagSupport {
 		return ic;
 	}
 
-	public static int IDValue() throws JspException {
+	public static Integer IDValue() throws JspException {
 		try {
 			return currentInstance.getID();
 		} catch (Exception e) {

@@ -2,11 +2,15 @@ package edu.uiowa.nihfoa.nihIc;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspTagException;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import edu.uiowa.nihfoa.NIHFOATagLibTagSupport;
 
 @SuppressWarnings("serial")
 public class NihIcTitle extends NIHFOATagLibTagSupport {
+	private static final Log log = LogFactory.getLog(NihIcTitle.class);
+
 
 	public int doStartTag() throws JspException {
 		try {
@@ -15,7 +19,7 @@ public class NihIcTitle extends NIHFOATagLibTagSupport {
 				pageContext.getOut().print(theNihIc.getTitle());
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error("Can't find enclosing NihIc for title tag ", e);
 			throw new JspTagException("Error: Can't find enclosing NihIc for title tag ");
 		}
 		return SKIP_BODY;
@@ -26,7 +30,7 @@ public class NihIcTitle extends NIHFOATagLibTagSupport {
 			NihIc theNihIc = (NihIc)findAncestorWithClass(this, NihIc.class);
 			return theNihIc.getTitle();
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(" Can't find enclosing NihIc for title tag ", e);
 			throw new JspTagException("Error: Can't find enclosing NihIc for title tag ");
 		}
 	}
@@ -36,7 +40,7 @@ public class NihIcTitle extends NIHFOATagLibTagSupport {
 			NihIc theNihIc = (NihIc)findAncestorWithClass(this, NihIc.class);
 			theNihIc.setTitle(title);
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error("Can't find enclosing NihIc for title tag ", e);
 			throw new JspTagException("Error: Can't find enclosing NihIc for title tag ");
 		}
 	}
