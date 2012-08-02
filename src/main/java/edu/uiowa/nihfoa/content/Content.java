@@ -28,6 +28,10 @@ public class Content extends NIHFOATagLibTagSupport {
 	int ID = 0;
 	String html = null;
 
+	private String var = null;
+
+	private Content cachedContent = null;
+
 	public int doStartTag() throws JspException {
 		currentInstance = this;
 		try {
@@ -66,11 +70,27 @@ public class Content extends NIHFOATagLibTagSupport {
 		} finally {
 			freeConnection();
 		}
+
+		Content currentContent = (Content) pageContext.getAttribute("tag_content");
+		if(currentContent != null){
+			cachedContent = currentContent;
+		}
+		currentContent = this;
+		pageContext.setAttribute((var == null ? "tag_content" : var), currentContent);
+
 		return EVAL_PAGE;
 	}
 
 	public int doEndTag() throws JspException {
 		currentInstance = null;
+
+		if(this.cachedContent != null){
+			pageContext.setAttribute((var == null ? "tag_content" : var), this.cachedContent);
+		}else{
+			pageContext.removeAttribute((var == null ? "tag_content" : var));
+			this.cachedContent = null;
+		}
+
 		try {
 			if (commitNeeded) {
 				PreparedStatement stmt = getConnection().prepareStatement("update NIH_FOA.content set html = ? where id = ?");
@@ -139,6 +159,18 @@ public class Content extends NIHFOATagLibTagSupport {
 		return html;
 	}
 
+	public String getVar () {
+		return var;
+	}
+
+	public void setVar (String var) {
+		this.var = var;
+	}
+
+	public String getActualVar () {
+		return var;
+	}
+
 	public static Integer IDValue() throws JspException {
 		try {
 			return currentInstance.getID();
@@ -161,6 +193,7 @@ public class Content extends NIHFOATagLibTagSupport {
 		newRecord = false;
 		commitNeeded = false;
 		parentEntities = new Vector<NIHFOATagLibTagSupport>();
+		this.var = null;
 
 	}
 

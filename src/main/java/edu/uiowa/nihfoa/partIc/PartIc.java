@@ -30,6 +30,10 @@ public class PartIc extends NIHFOATagLibTagSupport {
 	int ID = 0;
 	String ic = null;
 
+	private String var = null;
+
+	private PartIc cachedPartIc = null;
+
 	public int doStartTag() throws JspException {
 		currentInstance = this;
 		try {
@@ -114,11 +118,27 @@ public class PartIc extends NIHFOATagLibTagSupport {
 		} finally {
 			freeConnection();
 		}
+
+		PartIc currentPartIc = (PartIc) pageContext.getAttribute("tag_partIc");
+		if(currentPartIc != null){
+			cachedPartIc = currentPartIc;
+		}
+		currentPartIc = this;
+		pageContext.setAttribute((var == null ? "tag_partIc" : var), currentPartIc);
+
 		return EVAL_PAGE;
 	}
 
 	public int doEndTag() throws JspException {
 		currentInstance = null;
+
+		if(this.cachedPartIc != null){
+			pageContext.setAttribute((var == null ? "tag_partIc" : var), this.cachedPartIc);
+		}else{
+			pageContext.removeAttribute((var == null ? "tag_partIc" : var));
+			this.cachedPartIc = null;
+		}
+
 		try {
 			if (commitNeeded) {
 				PreparedStatement stmt = getConnection().prepareStatement("update NIH_FOA.part_ic set where id = ? and ic = ?");
@@ -179,6 +199,18 @@ public class PartIc extends NIHFOATagLibTagSupport {
 		return ic;
 	}
 
+	public String getVar () {
+		return var;
+	}
+
+	public void setVar (String var) {
+		this.var = var;
+	}
+
+	public String getActualVar () {
+		return var;
+	}
+
 	public static Integer IDValue() throws JspException {
 		try {
 			return currentInstance.getID();
@@ -201,6 +233,7 @@ public class PartIc extends NIHFOATagLibTagSupport {
 		newRecord = false;
 		commitNeeded = false;
 		parentEntities = new Vector<NIHFOATagLibTagSupport>();
+		this.var = null;
 
 	}
 

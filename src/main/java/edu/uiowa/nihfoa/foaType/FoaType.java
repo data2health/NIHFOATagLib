@@ -30,6 +30,10 @@ public class FoaType extends NIHFOATagLibTagSupport {
 	String description = null;
 	String infoLink = null;
 
+	private String var = null;
+
+	private FoaType cachedFoaType = null;
+
 	public int doStartTag() throws JspException {
 		currentInstance = this;
 		try {
@@ -74,11 +78,27 @@ public class FoaType extends NIHFOATagLibTagSupport {
 		} finally {
 			freeConnection();
 		}
+
+		FoaType currentFoaType = (FoaType) pageContext.getAttribute("tag_foaType");
+		if(currentFoaType != null){
+			cachedFoaType = currentFoaType;
+		}
+		currentFoaType = this;
+		pageContext.setAttribute((var == null ? "tag_foaType" : var), currentFoaType);
+
 		return EVAL_PAGE;
 	}
 
 	public int doEndTag() throws JspException {
 		currentInstance = null;
+
+		if(this.cachedFoaType != null){
+			pageContext.setAttribute((var == null ? "tag_foaType" : var), this.cachedFoaType);
+		}else{
+			pageContext.removeAttribute((var == null ? "tag_foaType" : var));
+			this.cachedFoaType = null;
+		}
+
 		try {
 			if (commitNeeded) {
 				PreparedStatement stmt = getConnection().prepareStatement("update NIH_FOA.foa_type set category = ?, title = ?, description = ?, info_link = ? where code = ?");
@@ -205,6 +225,18 @@ public class FoaType extends NIHFOATagLibTagSupport {
 		return infoLink;
 	}
 
+	public String getVar () {
+		return var;
+	}
+
+	public void setVar (String var) {
+		this.var = var;
+	}
+
+	public String getActualVar () {
+		return var;
+	}
+
 	public static String codeValue() throws JspException {
 		try {
 			return currentInstance.getCode();
@@ -254,6 +286,7 @@ public class FoaType extends NIHFOATagLibTagSupport {
 		newRecord = false;
 		commitNeeded = false;
 		parentEntities = new Vector<NIHFOATagLibTagSupport>();
+		this.var = null;
 
 	}
 

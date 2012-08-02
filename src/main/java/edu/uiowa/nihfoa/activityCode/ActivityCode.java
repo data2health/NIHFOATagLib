@@ -30,6 +30,10 @@ public class ActivityCode extends NIHFOATagLibTagSupport {
 	int ID = 0;
 	String code = null;
 
+	private String var = null;
+
+	private ActivityCode cachedActivityCode = null;
+
 	public int doStartTag() throws JspException {
 		currentInstance = this;
 		try {
@@ -114,11 +118,27 @@ public class ActivityCode extends NIHFOATagLibTagSupport {
 		} finally {
 			freeConnection();
 		}
+
+		ActivityCode currentActivityCode = (ActivityCode) pageContext.getAttribute("tag_activityCode");
+		if(currentActivityCode != null){
+			cachedActivityCode = currentActivityCode;
+		}
+		currentActivityCode = this;
+		pageContext.setAttribute((var == null ? "tag_activityCode" : var), currentActivityCode);
+
 		return EVAL_PAGE;
 	}
 
 	public int doEndTag() throws JspException {
 		currentInstance = null;
+
+		if(this.cachedActivityCode != null){
+			pageContext.setAttribute((var == null ? "tag_activityCode" : var), this.cachedActivityCode);
+		}else{
+			pageContext.removeAttribute((var == null ? "tag_activityCode" : var));
+			this.cachedActivityCode = null;
+		}
+
 		try {
 			if (commitNeeded) {
 				PreparedStatement stmt = getConnection().prepareStatement("update NIH_FOA.activity_code set where id = ? and code = ?");
@@ -179,6 +199,18 @@ public class ActivityCode extends NIHFOATagLibTagSupport {
 		return code;
 	}
 
+	public String getVar () {
+		return var;
+	}
+
+	public void setVar (String var) {
+		this.var = var;
+	}
+
+	public String getActualVar () {
+		return var;
+	}
+
 	public static Integer IDValue() throws JspException {
 		try {
 			return currentInstance.getID();
@@ -201,6 +233,7 @@ public class ActivityCode extends NIHFOATagLibTagSupport {
 		newRecord = false;
 		commitNeeded = false;
 		parentEntities = new Vector<NIHFOATagLibTagSupport>();
+		this.var = null;
 
 	}
 

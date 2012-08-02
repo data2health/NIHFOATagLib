@@ -30,6 +30,10 @@ public class Interest extends NIHFOATagLibTagSupport {
 	int uid = 0;
 	int ID = 0;
 
+	private String var = null;
+
+	private Interest cachedInterest = null;
+
 	public int doStartTag() throws JspException {
 		currentInstance = this;
 		try {
@@ -114,11 +118,27 @@ public class Interest extends NIHFOATagLibTagSupport {
 		} finally {
 			freeConnection();
 		}
+
+		Interest currentInterest = (Interest) pageContext.getAttribute("tag_interest");
+		if(currentInterest != null){
+			cachedInterest = currentInterest;
+		}
+		currentInterest = this;
+		pageContext.setAttribute((var == null ? "tag_interest" : var), currentInterest);
+
 		return EVAL_PAGE;
 	}
 
 	public int doEndTag() throws JspException {
 		currentInstance = null;
+
+		if(this.cachedInterest != null){
+			pageContext.setAttribute((var == null ? "tag_interest" : var), this.cachedInterest);
+		}else{
+			pageContext.removeAttribute((var == null ? "tag_interest" : var));
+			this.cachedInterest = null;
+		}
+
 		try {
 			if (commitNeeded) {
 				PreparedStatement stmt = getConnection().prepareStatement("update NIH_FOA.interest set where uid = ? and id = ?");
@@ -176,6 +196,18 @@ public class Interest extends NIHFOATagLibTagSupport {
 		return ID;
 	}
 
+	public String getVar () {
+		return var;
+	}
+
+	public void setVar (String var) {
+		this.var = var;
+	}
+
+	public String getActualVar () {
+		return var;
+	}
+
 	public static Integer uidValue() throws JspException {
 		try {
 			return currentInstance.getUid();
@@ -198,6 +230,7 @@ public class Interest extends NIHFOATagLibTagSupport {
 		newRecord = false;
 		commitNeeded = false;
 		parentEntities = new Vector<NIHFOATagLibTagSupport>();
+		this.var = null;
 
 	}
 

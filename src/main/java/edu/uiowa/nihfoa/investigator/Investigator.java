@@ -30,6 +30,10 @@ public class Investigator extends NIHFOATagLibTagSupport {
 	String mode = null;
 	Date lastCheck = null;
 
+	private String var = null;
+
+	private Investigator cachedInvestigator = null;
+
 	public int doStartTag() throws JspException {
 		currentInstance = this;
 		try {
@@ -70,11 +74,27 @@ public class Investigator extends NIHFOATagLibTagSupport {
 		} finally {
 			freeConnection();
 		}
+
+		Investigator currentInvestigator = (Investigator) pageContext.getAttribute("tag_investigator");
+		if(currentInvestigator != null){
+			cachedInvestigator = currentInvestigator;
+		}
+		currentInvestigator = this;
+		pageContext.setAttribute((var == null ? "tag_investigator" : var), currentInvestigator);
+
 		return EVAL_PAGE;
 	}
 
 	public int doEndTag() throws JspException {
 		currentInstance = null;
+
+		if(this.cachedInvestigator != null){
+			pageContext.setAttribute((var == null ? "tag_investigator" : var), this.cachedInvestigator);
+		}else{
+			pageContext.removeAttribute((var == null ? "tag_investigator" : var));
+			this.cachedInvestigator = null;
+		}
+
 		try {
 			if (commitNeeded) {
 				PreparedStatement stmt = getConnection().prepareStatement("update NIH_FOA.investigator set mode = ?, last_check = ? where uid = ?");
@@ -163,6 +183,18 @@ public class Investigator extends NIHFOATagLibTagSupport {
 		commitNeeded = true;
 	}
 
+	public String getVar () {
+		return var;
+	}
+
+	public void setVar (String var) {
+		this.var = var;
+	}
+
+	public String getActualVar () {
+		return var;
+	}
+
 	public static Integer uidValue() throws JspException {
 		try {
 			return currentInstance.getUid();
@@ -194,6 +226,7 @@ public class Investigator extends NIHFOATagLibTagSupport {
 		newRecord = false;
 		commitNeeded = false;
 		parentEntities = new Vector<NIHFOATagLibTagSupport>();
+		this.var = null;
 
 	}
 

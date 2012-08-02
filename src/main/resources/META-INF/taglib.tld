@@ -61,6 +61,12 @@
 		<body-content>JSP</body-content>
 
 		<attribute>
+			<name>var</name>
+			<required>false</required>
+			<rtexprvalue>false</rtexprvalue>
+		</attribute>
+
+		<attribute>
 			<name>ID</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
@@ -422,6 +428,12 @@
 		<body-content>JSP</body-content>
 
 		<attribute>
+			<name>var</name>
+			<required>false</required>
+			<rtexprvalue>false</rtexprvalue>
+		</attribute>
+
+		<attribute>
 			<name>ID</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
@@ -531,6 +543,12 @@
 		<body-content>JSP</body-content>
 
 		<attribute>
+			<name>var</name>
+			<required>false</required>
+			<rtexprvalue>false</rtexprvalue>
+		</attribute>
+
+		<attribute>
 			<name>ID</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
@@ -619,6 +637,12 @@
 		<name>foaType</name>
 		<tag-class>edu.uiowa.nihfoa.foaType.FoaType</tag-class>
 		<body-content>JSP</body-content>
+
+		<attribute>
+			<name>var</name>
+			<required>false</required>
+			<rtexprvalue>false</rtexprvalue>
+		</attribute>
 
 		<attribute>
 			<name>code</name>
@@ -733,6 +757,12 @@
 		<name>nihIc</name>
 		<tag-class>edu.uiowa.nihfoa.nihIc.NihIc</tag-class>
 		<body-content>JSP</body-content>
+
+		<attribute>
+			<name>var</name>
+			<required>false</required>
+			<rtexprvalue>false</rtexprvalue>
+		</attribute>
 
 		<attribute>
 			<name>ic</name>
@@ -861,6 +891,12 @@
 		<body-content>JSP</body-content>
 
 		<attribute>
+			<name>var</name>
+			<required>false</required>
+			<rtexprvalue>false</rtexprvalue>
+		</attribute>
+
+		<attribute>
 			<name>ID</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
@@ -937,6 +973,12 @@
 		<name>investigator</name>
 		<tag-class>edu.uiowa.nihfoa.investigator.Investigator</tag-class>
 		<body-content>JSP</body-content>
+
+		<attribute>
+			<name>var</name>
+			<required>false</required>
+			<rtexprvalue>false</rtexprvalue>
+		</attribute>
 
 		<attribute>
 			<name>uid</name>
@@ -1084,6 +1126,12 @@
 		<body-content>JSP</body-content>
 
 		<attribute>
+			<name>var</name>
+			<required>false</required>
+			<rtexprvalue>false</rtexprvalue>
+		</attribute>
+
+		<attribute>
 			<name>uid</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
@@ -1205,96 +1253,6 @@
 	</function>
 
 	<function>
-		<name>guideDocIDValue</name>
-		<function-class>edu.uiowa.nihfoa.guideDoc.GuideDoc</function-class>
-		<function-signature>java.lang.Integer IDValue()</function-signature>
-	</function>
-
-	<function>
-		<name>guideDocPrimaryIcValue</name>
-		<function-class>edu.uiowa.nihfoa.guideDoc.GuideDoc</function-class>
-		<function-signature>java.lang.String primaryIcValue()</function-signature>
-	</function>
-
-	<function>
-		<name>guideDocTitleValue</name>
-		<function-class>edu.uiowa.nihfoa.guideDoc.GuideDoc</function-class>
-		<function-signature>java.lang.String titleValue()</function-signature>
-	</function>
-
-	<function>
-		<name>guideDocPurposeValue</name>
-		<function-class>edu.uiowa.nihfoa.guideDoc.GuideDoc</function-class>
-		<function-signature>java.lang.String purposeValue()</function-signature>
-	</function>
-
-	<function>
-		<name>guideDocRelNoteValue</name>
-		<function-class>edu.uiowa.nihfoa.guideDoc.GuideDoc</function-class>
-		<function-signature>java.lang.String relNoteValue()</function-signature>
-	</function>
-
-	<function>
-		<name>guideDocFaDirectCostsValue</name>
-		<function-class>edu.uiowa.nihfoa.guideDoc.GuideDoc</function-class>
-		<function-signature>java.lang.String faDirectCostsValue()</function-signature>
-	</function>
-
-	<function>
-		<name>guideDocGuideLinkValue</name>
-		<function-class>edu.uiowa.nihfoa.guideDoc.GuideDoc</function-class>
-		<function-signature>java.lang.String guideLinkValue()</function-signature>
-	</function>
-
-	<function>
-		<name>guideDocRelDateValue</name>
-		<function-class>edu.uiowa.nihfoa.guideDoc.GuideDoc</function-class>
-		<function-signature>java.lang.Date relDateValue()</function-signature>
-	</function>
-
-	<function>
-		<name>guideDocIntentDateValue</name>
-		<function-class>edu.uiowa.nihfoa.guideDoc.GuideDoc</function-class>
-		<function-signature>java.lang.String intentDateValue()</function-signature>
-	</function>
-
-	<function>
-		<name>guideDocAppReceiptDateValue</name>
-		<function-class>edu.uiowa.nihfoa.guideDoc.GuideDoc</function-class>
-		<function-signature>java.lang.String appReceiptDateValue()</function-signature>
-	</function>
-
-	<function>
-		<name>guideDocLardValue</name>
-		<function-class>edu.uiowa.nihfoa.guideDoc.GuideDoc</function-class>
-		<function-signature>java.lang.Date lardValue()</function-signature>
-	</function>
-
-	<function>
-		<name>guideDocFileNameValue</name>
-		<function-class>edu.uiowa.nihfoa.guideDoc.GuideDoc</function-class>
-		<function-signature>java.lang.String fileNameValue()</function-signature>
-	</function>
-
-	<function>
-		<name>guideDocDocTypeValue</name>
-		<function-class>edu.uiowa.nihfoa.guideDoc.GuideDoc</function-class>
-		<function-signature>java.lang.String docTypeValue()</function-signature>
-	</function>
-
-	<function>
-		<name>guideDocDocNumValue</name>
-		<function-class>edu.uiowa.nihfoa.guideDoc.GuideDoc</function-class>
-		<function-signature>java.lang.String docNumValue()</function-signature>
-	</function>
-
-	<function>
-		<name>guideDocExpirationDateValue</name>
-		<function-class>edu.uiowa.nihfoa.guideDoc.GuideDoc</function-class>
-		<function-signature>java.lang.Date expirationDateValue()</function-signature>
-	</function>
-
-	<function>
 		<name>partIcExists</name>
 		<function-class>edu.uiowa.nihfoa.partIc.PartIcIterator</function-class>
 		<function-signature>java.lang.String partIcExists(java.lang.String, java.lang.String)</function-signature>
@@ -1328,18 +1286,6 @@
 		<name>guideDocNihIcExists</name>
 		<function-class>edu.uiowa.nihfoa.partIc.PartIcIterator</function-class>
 		<function-signature>java.lang.Boolean guideDocNihIcExists(java.lang.String, java.lang.String)</function-signature>
-	</function>
-
-	<function>
-		<name>partIcIDValue</name>
-		<function-class>edu.uiowa.nihfoa.partIc.PartIc</function-class>
-		<function-signature>java.lang.Integer IDValue()</function-signature>
-	</function>
-
-	<function>
-		<name>partIcIcValue</name>
-		<function-class>edu.uiowa.nihfoa.partIc.PartIc</function-class>
-		<function-signature>java.lang.String icValue()</function-signature>
 	</function>
 
 	<function>
@@ -1379,18 +1325,6 @@
 	</function>
 
 	<function>
-		<name>activityCodeIDValue</name>
-		<function-class>edu.uiowa.nihfoa.activityCode.ActivityCode</function-class>
-		<function-signature>java.lang.Integer IDValue()</function-signature>
-	</function>
-
-	<function>
-		<name>activityCodeCodeValue</name>
-		<function-class>edu.uiowa.nihfoa.activityCode.ActivityCode</function-class>
-		<function-signature>java.lang.String codeValue()</function-signature>
-	</function>
-
-	<function>
 		<name>foaTypeCount</name>
 		<function-class>edu.uiowa.nihfoa.foaType.FoaTypeIterator</function-class>
 		<function-signature>java.lang.String foaTypeCount()</function-signature>
@@ -1400,36 +1334,6 @@
 		<name>foaTypeExists</name>
 		<function-class>edu.uiowa.nihfoa.foaType.FoaTypeIterator</function-class>
 		<function-signature>java.lang.String foaTypeExists(java.lang.String)</function-signature>
-	</function>
-
-	<function>
-		<name>foaTypeCodeValue</name>
-		<function-class>edu.uiowa.nihfoa.foaType.FoaType</function-class>
-		<function-signature>java.lang.String codeValue()</function-signature>
-	</function>
-
-	<function>
-		<name>foaTypeCategoryValue</name>
-		<function-class>edu.uiowa.nihfoa.foaType.FoaType</function-class>
-		<function-signature>java.lang.String categoryValue()</function-signature>
-	</function>
-
-	<function>
-		<name>foaTypeTitleValue</name>
-		<function-class>edu.uiowa.nihfoa.foaType.FoaType</function-class>
-		<function-signature>java.lang.String titleValue()</function-signature>
-	</function>
-
-	<function>
-		<name>foaTypeDescriptionValue</name>
-		<function-class>edu.uiowa.nihfoa.foaType.FoaType</function-class>
-		<function-signature>java.lang.String descriptionValue()</function-signature>
-	</function>
-
-	<function>
-		<name>foaTypeInfoLinkValue</name>
-		<function-class>edu.uiowa.nihfoa.foaType.FoaType</function-class>
-		<function-signature>java.lang.String infoLinkValue()</function-signature>
 	</function>
 
 	<function>
@@ -1445,42 +1349,6 @@
 	</function>
 
 	<function>
-		<name>nihIcIcValue</name>
-		<function-class>edu.uiowa.nihfoa.nihIc.NihIc</function-class>
-		<function-signature>java.lang.String icValue()</function-signature>
-	</function>
-
-	<function>
-		<name>nihIcTitleValue</name>
-		<function-class>edu.uiowa.nihfoa.nihIc.NihIc</function-class>
-		<function-signature>java.lang.String titleValue()</function-signature>
-	</function>
-
-	<function>
-		<name>nihIcDescriptionValue</name>
-		<function-class>edu.uiowa.nihfoa.nihIc.NihIc</function-class>
-		<function-signature>java.lang.String descriptionValue()</function-signature>
-	</function>
-
-	<function>
-		<name>nihIcLogoLinkValue</name>
-		<function-class>edu.uiowa.nihfoa.nihIc.NihIc</function-class>
-		<function-signature>java.lang.String logoLinkValue()</function-signature>
-	</function>
-
-	<function>
-		<name>nihIcInfoLinkValue</name>
-		<function-class>edu.uiowa.nihfoa.nihIc.NihIc</function-class>
-		<function-signature>java.lang.String infoLinkValue()</function-signature>
-	</function>
-
-	<function>
-		<name>nihIcCategoryValue</name>
-		<function-class>edu.uiowa.nihfoa.nihIc.NihIc</function-class>
-		<function-signature>java.lang.String categoryValue()</function-signature>
-	</function>
-
-	<function>
 		<name>contentCount</name>
 		<function-class>edu.uiowa.nihfoa.content.ContentIterator</function-class>
 		<function-signature>java.lang.String contentCount()</function-signature>
@@ -1493,18 +1361,6 @@
 	</function>
 
 	<function>
-		<name>contentIDValue</name>
-		<function-class>edu.uiowa.nihfoa.content.Content</function-class>
-		<function-signature>java.lang.Integer IDValue()</function-signature>
-	</function>
-
-	<function>
-		<name>contentHtmlValue</name>
-		<function-class>edu.uiowa.nihfoa.content.Content</function-class>
-		<function-signature>java.lang.String htmlValue()</function-signature>
-	</function>
-
-	<function>
 		<name>investigatorCount</name>
 		<function-class>edu.uiowa.nihfoa.investigator.InvestigatorIterator</function-class>
 		<function-signature>java.lang.String investigatorCount()</function-signature>
@@ -1514,24 +1370,6 @@
 		<name>investigatorExists</name>
 		<function-class>edu.uiowa.nihfoa.investigator.InvestigatorIterator</function-class>
 		<function-signature>java.lang.String investigatorExists(java.lang.String)</function-signature>
-	</function>
-
-	<function>
-		<name>investigatorUidValue</name>
-		<function-class>edu.uiowa.nihfoa.investigator.Investigator</function-class>
-		<function-signature>java.lang.Integer uidValue()</function-signature>
-	</function>
-
-	<function>
-		<name>investigatorModeValue</name>
-		<function-class>edu.uiowa.nihfoa.investigator.Investigator</function-class>
-		<function-signature>java.lang.String modeValue()</function-signature>
-	</function>
-
-	<function>
-		<name>investigatorLastCheckValue</name>
-		<function-class>edu.uiowa.nihfoa.investigator.Investigator</function-class>
-		<function-signature>java.lang.Date lastCheckValue()</function-signature>
 	</function>
 
 	<function>
@@ -1568,18 +1406,6 @@
 		<name>guideDocInvestigatorExists</name>
 		<function-class>edu.uiowa.nihfoa.interest.InterestIterator</function-class>
 		<function-signature>java.lang.Boolean guideDocInvestigatorExists(java.lang.String, java.lang.String)</function-signature>
-	</function>
-
-	<function>
-		<name>interestUidValue</name>
-		<function-class>edu.uiowa.nihfoa.interest.Interest</function-class>
-		<function-signature>java.lang.Integer uidValue()</function-signature>
-	</function>
-
-	<function>
-		<name>interestIDValue</name>
-		<function-class>edu.uiowa.nihfoa.interest.Interest</function-class>
-		<function-signature>java.lang.Integer IDValue()</function-signature>
 	</function>
 
 

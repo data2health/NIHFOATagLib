@@ -42,6 +42,10 @@ public class GuideDoc extends NIHFOATagLibTagSupport {
 	String docNum = null;
 	Date expirationDate = null;
 
+	private String var = null;
+
+	private GuideDoc cachedGuideDoc = null;
+
 	public int doStartTag() throws JspException {
 		currentInstance = this;
 		try {
@@ -106,11 +110,27 @@ public class GuideDoc extends NIHFOATagLibTagSupport {
 		} finally {
 			freeConnection();
 		}
+
+		GuideDoc currentGuideDoc = (GuideDoc) pageContext.getAttribute("tag_guideDoc");
+		if(currentGuideDoc != null){
+			cachedGuideDoc = currentGuideDoc;
+		}
+		currentGuideDoc = this;
+		pageContext.setAttribute((var == null ? "tag_guideDoc" : var), currentGuideDoc);
+
 		return EVAL_PAGE;
 	}
 
 	public int doEndTag() throws JspException {
 		currentInstance = null;
+
+		if(this.cachedGuideDoc != null){
+			pageContext.setAttribute((var == null ? "tag_guideDoc" : var), this.cachedGuideDoc);
+		}else{
+			pageContext.removeAttribute((var == null ? "tag_guideDoc" : var));
+			this.cachedGuideDoc = null;
+		}
+
 		try {
 			if (commitNeeded) {
 				PreparedStatement stmt = getConnection().prepareStatement("update NIH_FOA.guide_doc set primary_ic = ?, title = ?, purpose = ?, rel_note = ?, fa_direct_costs = ?, guide_link = ?, rel_date = ?, intent_date = ?, app_receipt_date = ?, lard = ?, file_name = ?, doc_type = ?, doc_num = ?, expiration_date = ? where id = ?");
@@ -439,6 +459,18 @@ public class GuideDoc extends NIHFOATagLibTagSupport {
 		commitNeeded = true;
 	}
 
+	public String getVar () {
+		return var;
+	}
+
+	public void setVar (String var) {
+		this.var = var;
+	}
+
+	public String getActualVar () {
+		return var;
+	}
+
 	public static Integer IDValue() throws JspException {
 		try {
 			return currentInstance.getID();
@@ -578,6 +610,7 @@ public class GuideDoc extends NIHFOATagLibTagSupport {
 		newRecord = false;
 		commitNeeded = false;
 		parentEntities = new Vector<NIHFOATagLibTagSupport>();
+		this.var = null;
 
 	}
 

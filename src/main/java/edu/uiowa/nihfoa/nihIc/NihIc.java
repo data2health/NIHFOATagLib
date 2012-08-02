@@ -31,6 +31,10 @@ public class NihIc extends NIHFOATagLibTagSupport {
 	String infoLink = null;
 	String category = null;
 
+	private String var = null;
+
+	private NihIc cachedNihIc = null;
+
 	public int doStartTag() throws JspException {
 		currentInstance = this;
 		try {
@@ -77,11 +81,27 @@ public class NihIc extends NIHFOATagLibTagSupport {
 		} finally {
 			freeConnection();
 		}
+
+		NihIc currentNihIc = (NihIc) pageContext.getAttribute("tag_nihIc");
+		if(currentNihIc != null){
+			cachedNihIc = currentNihIc;
+		}
+		currentNihIc = this;
+		pageContext.setAttribute((var == null ? "tag_nihIc" : var), currentNihIc);
+
 		return EVAL_PAGE;
 	}
 
 	public int doEndTag() throws JspException {
 		currentInstance = null;
+
+		if(this.cachedNihIc != null){
+			pageContext.setAttribute((var == null ? "tag_nihIc" : var), this.cachedNihIc);
+		}else{
+			pageContext.removeAttribute((var == null ? "tag_nihIc" : var));
+			this.cachedNihIc = null;
+		}
+
 		try {
 			if (commitNeeded) {
 				PreparedStatement stmt = getConnection().prepareStatement("update NIH_FOA.nih_ic set title = ?, description = ?, logo_link = ?, info_link = ?, category = ? where ic = ?");
@@ -228,6 +248,18 @@ public class NihIc extends NIHFOATagLibTagSupport {
 		return category;
 	}
 
+	public String getVar () {
+		return var;
+	}
+
+	public void setVar (String var) {
+		this.var = var;
+	}
+
+	public String getActualVar () {
+		return var;
+	}
+
 	public static String icValue() throws JspException {
 		try {
 			return currentInstance.getIc();
@@ -286,6 +318,7 @@ public class NihIc extends NIHFOATagLibTagSupport {
 		newRecord = false;
 		commitNeeded = false;
 		parentEntities = new Vector<NIHFOATagLibTagSupport>();
+		this.var = null;
 
 	}
 
