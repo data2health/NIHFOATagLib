@@ -85,7 +85,6 @@ public class FoaTypeIterator extends NIHFOATagLibBodyTagSupport {
 
       try {
             //run count query  
-            int webapp_keySeq = 1;
             stat = getConnection().prepareStatement("SELECT count(*) from " + generateFromClause() + " where 1=1"
                                                         + generateJoinCriteria()
                                                         +  generateLimitCriteria());
@@ -97,7 +96,6 @@ public class FoaTypeIterator extends NIHFOATagLibBodyTagSupport {
 
 
             //run select id query  
-            webapp_keySeq = 1;
             stat = getConnection().prepareStatement("SELECT NIH_FOA.foa_type.code from " + generateFromClause() + " where 1=1"
                                                         + generateJoinCriteria()
                                                         + " order by " + generateSortCriteria() + generateLimitCriteria());

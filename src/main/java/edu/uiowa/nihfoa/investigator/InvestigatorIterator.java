@@ -84,7 +84,6 @@ public class InvestigatorIterator extends NIHFOATagLibBodyTagSupport {
 
       try {
             //run count query  
-            int webapp_keySeq = 1;
             stat = getConnection().prepareStatement("SELECT count(*) from " + generateFromClause() + " where 1=1"
                                                         + generateJoinCriteria()
                                                         +  generateLimitCriteria());
@@ -96,7 +95,6 @@ public class InvestigatorIterator extends NIHFOATagLibBodyTagSupport {
 
 
             //run select id query  
-            webapp_keySeq = 1;
             stat = getConnection().prepareStatement("SELECT NIH_FOA.investigator.uid from " + generateFromClause() + " where 1=1"
                                                         + generateJoinCriteria()
                                                         + " order by " + generateSortCriteria() + generateLimitCriteria());

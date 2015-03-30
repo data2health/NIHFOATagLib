@@ -68,7 +68,6 @@ public class GuideDocIteratorByPrimary extends NIHFOATagLibBodyTagSupport {
 
         PreparedStatement stat = null;
         try {
-            int webapp_keySeq = 1;
             stat = getConnection().prepareStatement("SELECT NIH_FOA.guide_doc.id from " + generateFromClause() + " where 1=1"
                                                         + " and primary_ic = ? "
                                                         + generateJoinCriteria()
