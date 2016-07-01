@@ -25,6 +25,7 @@ public class LuceneIndex extends NIHFOATagLibTagSupport {
         DataSource theDataSource = null;
         int documentCount = 0;
         
+		@SuppressWarnings("deprecation")
 		public int doStartTag() throws JspException {
 	        try {
 	            if (truncate) {
