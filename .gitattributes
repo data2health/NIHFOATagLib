@@ -78,6 +78,7 @@ src/main/java/edu/uiowa/nihfoa/partIc/PartIcDeleter.java svneol=native#text/x-ja
 src/main/java/edu/uiowa/nihfoa/partIc/PartIcID.java svneol=native#text/x-java-source
 src/main/java/edu/uiowa/nihfoa/partIc/PartIcIc.java svneol=native#text/x-java-source
 src/main/java/edu/uiowa/nihfoa/partIc/PartIcIterator.java svneol=native#text/x-java-source
+src/main/java/edu/uiowa/nihfoa/util/NIHFOALoader.java -text
 src/main/resources/META-INF/taglib.tld -text svneol=unset#text/xml
 src/non-packaged-resources/NIHFOATagLib.clay -text svneol=unset#text/xml
 src/non-packaged-resources/NIHFOATagLib.sql svneol=native#text/plain

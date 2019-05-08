@@ -69,6 +69,16 @@
       	<version>3.6.1</version>
       	<scope>runtime</scope>
       </dependency>
+      <dependency>
+      	<groupId>jaxen</groupId>
+      	<artifactId>jaxen</artifactId>
+      	<version>1.1.1</version>
+      </dependency>
+      <dependency>
+      	<groupId>edu.uiowa.icts</groupId>
+      	<artifactId>RDFUtil</artifactId>
+      	<version>0.0.2-SNAPSHOT</version>
+      </dependency>
    </dependencies>
    <build>
       <plugins>
