@@ -13,8 +13,8 @@ import javax.servlet.jsp.JspTagException;
 
 import edu.uiowa.nihfoa.NIHFOATagLibTagSupport;
 import edu.uiowa.nihfoa.NIHFOATagLibBodyTagSupport;
-import edu.uiowa.nihfoa.guideDoc.GuideDoc;
 import edu.uiowa.nihfoa.foaType.FoaType;
+import edu.uiowa.nihfoa.guideDoc.GuideDoc;
 
 @SuppressWarnings("serial")
 public class ActivityCodeIterator extends NIHFOATagLibBodyTagSupport {
@@ -32,36 +32,8 @@ public class ActivityCodeIterator extends NIHFOATagLibBodyTagSupport {
     String var = null;
     int rsCount = 0;
 
-   boolean useGuideDoc = false;
    boolean useFoaType = false;
-
-	public static String activityCodeCountByGuideDoc(String ID) throws JspTagException {
-		int count = 0;
-		ActivityCodeIterator theIterator = new ActivityCodeIterator();
-		try {
-			PreparedStatement stat = theIterator.getConnection().prepareStatement("SELECT count(*) from NIH_FOA.activity_code where 1=1"
-						+ " and id = ?"
-						);
-
-			stat.setInt(1,Integer.parseInt(ID));
-			ResultSet crs = stat.executeQuery();
-
-			if (crs.next()) {
-				count = crs.getInt(1);
-			}
-			stat.close();
-		} catch (SQLException e) {
-			log.error("JDBC error generating ActivityCode iterator", e);
-			throw new JspTagException("Error: JDBC error generating ActivityCode iterator");
-		} finally {
-			theIterator.freeConnection();
-		}
-		return "" + count;
-	}
-
-	public static Boolean guideDocHasActivityCode(String ID) throws JspTagException {
-		return ! activityCodeCountByGuideDoc(ID).equals("0");
-	}
+   boolean useGuideDoc = false;
 
 	public static String activityCodeCountByFoaType(String code) throws JspTagException {
 		int count = 0;
@@ -91,6 +63,34 @@ public class ActivityCodeIterator extends NIHFOATagLibBodyTagSupport {
 		return ! activityCodeCountByFoaType(code).equals("0");
 	}
 
+	public static String activityCodeCountByGuideDoc(String ID) throws JspTagException {
+		int count = 0;
+		ActivityCodeIterator theIterator = new ActivityCodeIterator();
+		try {
+			PreparedStatement stat = theIterator.getConnection().prepareStatement("SELECT count(*) from NIH_FOA.activity_code where 1=1"
+						+ " and id = ?"
+						);
+
+			stat.setInt(1,Integer.parseInt(ID));
+			ResultSet crs = stat.executeQuery();
+
+			if (crs.next()) {
+				count = crs.getInt(1);
+			}
+			stat.close();
+		} catch (SQLException e) {
+			log.error("JDBC error generating ActivityCode iterator", e);
+			throw new JspTagException("Error: JDBC error generating ActivityCode iterator");
+		} finally {
+			theIterator.freeConnection();
+		}
+		return "" + count;
+	}
+
+	public static Boolean guideDocHasActivityCode(String ID) throws JspTagException {
+		return ! activityCodeCountByGuideDoc(ID).equals("0");
+	}
+
 	public static Boolean activityCodeExists (String ID, String code) throws JspTagException {
 		int count = 0;
 		ActivityCodeIterator theIterator = new ActivityCodeIterator();
@@ -117,17 +117,17 @@ public class ActivityCodeIterator extends NIHFOATagLibBodyTagSupport {
 		return count > 0;
 	}
 
-	public static Boolean guideDocFoaTypeExists (String ID, String code) throws JspTagException {
+	public static Boolean foaTypeGuideDocExists (String code, String ID) throws JspTagException {
 		int count = 0;
 		ActivityCodeIterator theIterator = new ActivityCodeIterator();
 		try {
 			PreparedStatement stat = theIterator.getConnection().prepareStatement("SELECT count(*) from NIH_FOA.activity_code where 1=1"
-						+ " and id = ?"
 						+ " and code = ?"
+						+ " and id = ?"
 						);
 
-			stat.setInt(1,Integer.parseInt(ID));
-			stat.setString(2,code);
+			stat.setString(1,code);
+			stat.setInt(2,Integer.parseInt(ID));
 			ResultSet crs = stat.executeQuery();
 
 			if (crs.next()) {
@@ -144,20 +144,20 @@ public class ActivityCodeIterator extends NIHFOATagLibBodyTagSupport {
 	}
 
     public int doStartTag() throws JspException {
-		GuideDoc theGuideDoc = (GuideDoc)findAncestorWithClass(this, GuideDoc.class);
-		if (theGuideDoc!= null)
-			parentEntities.addElement(theGuideDoc);
 		FoaType theFoaType = (FoaType)findAncestorWithClass(this, FoaType.class);
 		if (theFoaType!= null)
 			parentEntities.addElement(theFoaType);
+		GuideDoc theGuideDoc = (GuideDoc)findAncestorWithClass(this, GuideDoc.class);
+		if (theGuideDoc!= null)
+			parentEntities.addElement(theGuideDoc);
 
-		if (theGuideDoc == null) {
-		} else {
-			ID = theGuideDoc.getID();
-		}
 		if (theFoaType == null) {
 		} else {
 			code = theFoaType.getCode();
+		}
+		if (theGuideDoc == null) {
+		} else {
+			ID = theGuideDoc.getID();
 		}
 
 
@@ -166,11 +166,11 @@ public class ActivityCodeIterator extends NIHFOATagLibBodyTagSupport {
             int webapp_keySeq = 1;
             stat = getConnection().prepareStatement("SELECT count(*) from " + generateFromClause() + " where 1=1"
                                                         + generateJoinCriteria()
-                                                        + (ID == 0 ? "" : " and id = ?")
                                                         + (code == null ? "" : " and code = ?")
+                                                        + (ID == 0 ? "" : " and id = ?")
                                                         +  generateLimitCriteria());
-            if (ID != 0) stat.setInt(webapp_keySeq++, ID);
             if (code != null) stat.setString(webapp_keySeq++, code);
+            if (ID != 0) stat.setInt(webapp_keySeq++, ID);
             rs = stat.executeQuery();
 
             if (rs.next()) {
@@ -182,11 +182,11 @@ public class ActivityCodeIterator extends NIHFOATagLibBodyTagSupport {
             webapp_keySeq = 1;
             stat = getConnection().prepareStatement("SELECT NIH_FOA.activity_code.id, NIH_FOA.activity_code.code from " + generateFromClause() + " where 1=1"
                                                         + generateJoinCriteria()
-                                                        + (ID == 0 ? "" : " and id = ?")
                                                         + (code == null ? "" : " and code = ?")
+                                                        + (ID == 0 ? "" : " and id = ?")
                                                         + " order by " + generateSortCriteria() + generateLimitCriteria());
-            if (ID != 0) stat.setInt(webapp_keySeq++, ID);
             if (code != null) stat.setString(webapp_keySeq++, code);
+            if (ID != 0) stat.setInt(webapp_keySeq++, ID);
             rs = stat.executeQuery();
 
             if (rs.next()) {
@@ -207,20 +207,20 @@ public class ActivityCodeIterator extends NIHFOATagLibBodyTagSupport {
 
     private String generateFromClause() {
        StringBuffer theBuffer = new StringBuffer("NIH_FOA.activity_code");
-       if (useGuideDoc)
-          theBuffer.append(", NIH_FOA.guide_doc");
        if (useFoaType)
           theBuffer.append(", NIH_FOA.foa_type");
+       if (useGuideDoc)
+          theBuffer.append(", NIH_FOA.guide_doc");
 
       return theBuffer.toString();
     }
 
     private String generateJoinCriteria() {
        StringBuffer theBuffer = new StringBuffer();
-       if (useGuideDoc)
-          theBuffer.append(" and guide_doc.ID = activity_code.null");
        if (useFoaType)
           theBuffer.append(" and foa_type.code = activity_code.null");
+       if (useGuideDoc)
+          theBuffer.append(" and guide_doc.ID = activity_code.null");
 
       return theBuffer.toString();
     }
@@ -309,20 +309,20 @@ public class ActivityCodeIterator extends NIHFOATagLibBodyTagSupport {
     }
 
 
-   public boolean getUseGuideDoc() {
-        return useGuideDoc;
-    }
-
-    public void setUseGuideDoc(boolean useGuideDoc) {
-        this.useGuideDoc = useGuideDoc;
-    }
-
    public boolean getUseFoaType() {
         return useFoaType;
     }
 
     public void setUseFoaType(boolean useFoaType) {
         this.useFoaType = useFoaType;
+    }
+
+   public boolean getUseGuideDoc() {
+        return useGuideDoc;
+    }
+
+    public void setUseGuideDoc(boolean useGuideDoc) {
+        this.useGuideDoc = useGuideDoc;
     }
 
 

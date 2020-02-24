@@ -10,8 +10,8 @@ import org.apache.commons.logging.LogFactory;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspTagException;
-import edu.uiowa.nihfoa.guideDoc.GuideDoc;
 import edu.uiowa.nihfoa.nihIc.NihIc;
+import edu.uiowa.nihfoa.guideDoc.GuideDoc;
 
 import edu.uiowa.nihfoa.NIHFOATagLibTagSupport;
 import edu.uiowa.nihfoa.Sequence;
@@ -37,20 +37,20 @@ public class PartIc extends NIHFOATagLibTagSupport {
 	public int doStartTag() throws JspException {
 		currentInstance = this;
 		try {
-			GuideDoc theGuideDoc = (GuideDoc)findAncestorWithClass(this, GuideDoc.class);
-			if (theGuideDoc!= null)
-				parentEntities.addElement(theGuideDoc);
 			NihIc theNihIc = (NihIc)findAncestorWithClass(this, NihIc.class);
 			if (theNihIc!= null)
 				parentEntities.addElement(theNihIc);
+			GuideDoc theGuideDoc = (GuideDoc)findAncestorWithClass(this, GuideDoc.class);
+			if (theGuideDoc!= null)
+				parentEntities.addElement(theGuideDoc);
 
-			if (theGuideDoc == null) {
-			} else {
-				ID = theGuideDoc.getID();
-			}
 			if (theNihIc == null) {
 			} else {
 				ic = theNihIc.getIc();
+			}
+			if (theGuideDoc == null) {
+			} else {
+				ID = theGuideDoc.getID();
 			}
 
 			PartIcIterator thePartIcIterator = (PartIcIterator)findAncestorWithClass(this, PartIcIterator.class);
@@ -60,27 +60,11 @@ public class PartIc extends NIHFOATagLibTagSupport {
 				ic = thePartIcIterator.getIc();
 			}
 
-			if (thePartIcIterator == null && theGuideDoc == null && theNihIc == null && ID == 0) {
+			if (thePartIcIterator == null && theNihIc == null && theGuideDoc == null && ID == 0) {
 				// no ID was provided - the default is to assume that it is a new PartIc and to generate a new ID
 				ID = Sequence.generateID();
 				insertEntity();
-			} else if (thePartIcIterator == null && theGuideDoc != null && theNihIc == null) {
-				// an ID was provided as an attribute - we need to load a PartIc from the database
-				boolean found = false;
-				PreparedStatement stmt = getConnection().prepareStatement("select ic from NIH_FOA.part_ic where id = ?");
-				stmt.setInt(1,ID);
-				ResultSet rs = stmt.executeQuery();
-				while (rs.next()) {
-					if (ic == null)
-						ic = rs.getString(1);
-					found = true;
-				}
-				stmt.close();
-
-				if (!found) {
-					insertEntity();
-				}
-			} else if (thePartIcIterator == null && theGuideDoc == null && theNihIc != null) {
+			} else if (thePartIcIterator == null && theNihIc != null && theGuideDoc == null) {
 				// an ID was provided as an attribute - we need to load a PartIc from the database
 				boolean found = false;
 				PreparedStatement stmt = getConnection().prepareStatement("select id from NIH_FOA.part_ic where ic = ?");
@@ -89,6 +73,22 @@ public class PartIc extends NIHFOATagLibTagSupport {
 				while (rs.next()) {
 					if (ID == 0)
 						ID = rs.getInt(1);
+					found = true;
+				}
+				stmt.close();
+
+				if (!found) {
+					insertEntity();
+				}
+			} else if (thePartIcIterator == null && theNihIc == null && theGuideDoc != null) {
+				// an ID was provided as an attribute - we need to load a PartIc from the database
+				boolean found = false;
+				PreparedStatement stmt = getConnection().prepareStatement("select ic from NIH_FOA.part_ic where id = ?");
+				stmt.setInt(1,ID);
+				ResultSet rs = stmt.executeQuery();
+				while (rs.next()) {
+					if (ic == null)
+						ic = rs.getString(1);
 					found = true;
 				}
 				stmt.close();

@@ -10,8 +10,8 @@ import org.apache.commons.logging.LogFactory;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspTagException;
-import edu.uiowa.nihfoa.guideDoc.GuideDoc;
 import edu.uiowa.nihfoa.foaType.FoaType;
+import edu.uiowa.nihfoa.guideDoc.GuideDoc;
 
 import edu.uiowa.nihfoa.NIHFOATagLibTagSupport;
 import edu.uiowa.nihfoa.Sequence;
@@ -37,20 +37,20 @@ public class ActivityCode extends NIHFOATagLibTagSupport {
 	public int doStartTag() throws JspException {
 		currentInstance = this;
 		try {
-			GuideDoc theGuideDoc = (GuideDoc)findAncestorWithClass(this, GuideDoc.class);
-			if (theGuideDoc!= null)
-				parentEntities.addElement(theGuideDoc);
 			FoaType theFoaType = (FoaType)findAncestorWithClass(this, FoaType.class);
 			if (theFoaType!= null)
 				parentEntities.addElement(theFoaType);
+			GuideDoc theGuideDoc = (GuideDoc)findAncestorWithClass(this, GuideDoc.class);
+			if (theGuideDoc!= null)
+				parentEntities.addElement(theGuideDoc);
 
-			if (theGuideDoc == null) {
-			} else {
-				ID = theGuideDoc.getID();
-			}
 			if (theFoaType == null) {
 			} else {
 				code = theFoaType.getCode();
+			}
+			if (theGuideDoc == null) {
+			} else {
+				ID = theGuideDoc.getID();
 			}
 
 			ActivityCodeIterator theActivityCodeIterator = (ActivityCodeIterator)findAncestorWithClass(this, ActivityCodeIterator.class);
@@ -60,27 +60,11 @@ public class ActivityCode extends NIHFOATagLibTagSupport {
 				code = theActivityCodeIterator.getCode();
 			}
 
-			if (theActivityCodeIterator == null && theGuideDoc == null && theFoaType == null && ID == 0) {
+			if (theActivityCodeIterator == null && theFoaType == null && theGuideDoc == null && ID == 0) {
 				// no ID was provided - the default is to assume that it is a new ActivityCode and to generate a new ID
 				ID = Sequence.generateID();
 				insertEntity();
-			} else if (theActivityCodeIterator == null && theGuideDoc != null && theFoaType == null) {
-				// an ID was provided as an attribute - we need to load a ActivityCode from the database
-				boolean found = false;
-				PreparedStatement stmt = getConnection().prepareStatement("select code from NIH_FOA.activity_code where id = ?");
-				stmt.setInt(1,ID);
-				ResultSet rs = stmt.executeQuery();
-				while (rs.next()) {
-					if (code == null)
-						code = rs.getString(1);
-					found = true;
-				}
-				stmt.close();
-
-				if (!found) {
-					insertEntity();
-				}
-			} else if (theActivityCodeIterator == null && theGuideDoc == null && theFoaType != null) {
+			} else if (theActivityCodeIterator == null && theFoaType != null && theGuideDoc == null) {
 				// an ID was provided as an attribute - we need to load a ActivityCode from the database
 				boolean found = false;
 				PreparedStatement stmt = getConnection().prepareStatement("select id from NIH_FOA.activity_code where code = ?");
@@ -89,6 +73,22 @@ public class ActivityCode extends NIHFOATagLibTagSupport {
 				while (rs.next()) {
 					if (ID == 0)
 						ID = rs.getInt(1);
+					found = true;
+				}
+				stmt.close();
+
+				if (!found) {
+					insertEntity();
+				}
+			} else if (theActivityCodeIterator == null && theFoaType == null && theGuideDoc != null) {
+				// an ID was provided as an attribute - we need to load a ActivityCode from the database
+				boolean found = false;
+				PreparedStatement stmt = getConnection().prepareStatement("select code from NIH_FOA.activity_code where id = ?");
+				stmt.setInt(1,ID);
+				ResultSet rs = stmt.executeQuery();
+				while (rs.next()) {
+					if (code == null)
+						code = rs.getString(1);
 					found = true;
 				}
 				stmt.close();

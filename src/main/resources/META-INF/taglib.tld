@@ -409,13 +409,13 @@
 		</attribute>
 
 		<attribute>
-			<name>useGuideDoc</name>
+			<name>useNihIc</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 
 		<attribute>
-			<name>useNihIc</name>
+			<name>useGuideDoc</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
@@ -524,13 +524,13 @@
 		</attribute>
 
 		<attribute>
-			<name>useGuideDoc</name>
+			<name>useFoaType</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 
 		<attribute>
-			<name>useFoaType</name>
+			<name>useGuideDoc</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
@@ -1259,18 +1259,6 @@
 	</function>
 
 	<function>
-		<name>partIcCountByGuideDoc</name>
-		<function-class>edu.uiowa.nihfoa.partIc.PartIcIterator</function-class>
-		<function-signature>java.lang.String partIcCountByGuideDoc(java.lang.String)</function-signature>
-	</function>
-
-	<function>
-		<name>guideDocHasPartIc</name>
-		<function-class>edu.uiowa.nihfoa.partIc.PartIcIterator</function-class>
-		<function-signature>java.lang.Boolean guideDocHasPartIc(java.lang.String)</function-signature>
-	</function>
-
-	<function>
 		<name>partIcCountByNihIc</name>
 		<function-class>edu.uiowa.nihfoa.partIc.PartIcIterator</function-class>
 		<function-signature>java.lang.String partIcCountByNihIc(java.lang.String)</function-signature>
@@ -1283,27 +1271,27 @@
 	</function>
 
 	<function>
-		<name>guideDocNihIcExists</name>
+		<name>partIcCountByGuideDoc</name>
 		<function-class>edu.uiowa.nihfoa.partIc.PartIcIterator</function-class>
-		<function-signature>java.lang.Boolean guideDocNihIcExists(java.lang.String, java.lang.String)</function-signature>
+		<function-signature>java.lang.String partIcCountByGuideDoc(java.lang.String)</function-signature>
+	</function>
+
+	<function>
+		<name>guideDocHasPartIc</name>
+		<function-class>edu.uiowa.nihfoa.partIc.PartIcIterator</function-class>
+		<function-signature>java.lang.Boolean guideDocHasPartIc(java.lang.String)</function-signature>
+	</function>
+
+	<function>
+		<name>nihIcGuideDocExists</name>
+		<function-class>edu.uiowa.nihfoa.partIc.PartIcIterator</function-class>
+		<function-signature>java.lang.Boolean nihIcGuideDocExists(java.lang.String, java.lang.String)</function-signature>
 	</function>
 
 	<function>
 		<name>activityCodeExists</name>
 		<function-class>edu.uiowa.nihfoa.activityCode.ActivityCodeIterator</function-class>
 		<function-signature>java.lang.String activityCodeExists(java.lang.String, java.lang.String)</function-signature>
-	</function>
-
-	<function>
-		<name>activityCodeCountByGuideDoc</name>
-		<function-class>edu.uiowa.nihfoa.activityCode.ActivityCodeIterator</function-class>
-		<function-signature>java.lang.String activityCodeCountByGuideDoc(java.lang.String)</function-signature>
-	</function>
-
-	<function>
-		<name>guideDocHasActivityCode</name>
-		<function-class>edu.uiowa.nihfoa.activityCode.ActivityCodeIterator</function-class>
-		<function-signature>java.lang.Boolean guideDocHasActivityCode(java.lang.String)</function-signature>
 	</function>
 
 	<function>
@@ -1319,9 +1307,21 @@
 	</function>
 
 	<function>
-		<name>guideDocFoaTypeExists</name>
+		<name>activityCodeCountByGuideDoc</name>
 		<function-class>edu.uiowa.nihfoa.activityCode.ActivityCodeIterator</function-class>
-		<function-signature>java.lang.Boolean guideDocFoaTypeExists(java.lang.String, java.lang.String)</function-signature>
+		<function-signature>java.lang.String activityCodeCountByGuideDoc(java.lang.String)</function-signature>
+	</function>
+
+	<function>
+		<name>guideDocHasActivityCode</name>
+		<function-class>edu.uiowa.nihfoa.activityCode.ActivityCodeIterator</function-class>
+		<function-signature>java.lang.Boolean guideDocHasActivityCode(java.lang.String)</function-signature>
+	</function>
+
+	<function>
+		<name>foaTypeGuideDocExists</name>
+		<function-class>edu.uiowa.nihfoa.activityCode.ActivityCodeIterator</function-class>
+		<function-signature>java.lang.Boolean foaTypeGuideDocExists(java.lang.String, java.lang.String)</function-signature>
 	</function>
 
 	<function>

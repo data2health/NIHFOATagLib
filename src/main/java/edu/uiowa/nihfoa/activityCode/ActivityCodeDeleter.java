@@ -13,8 +13,8 @@ import javax.servlet.jsp.JspTagException;
 
 import edu.uiowa.nihfoa.NIHFOATagLibTagSupport;
 import edu.uiowa.nihfoa.NIHFOATagLibBodyTagSupport;
-import edu.uiowa.nihfoa.guideDoc.GuideDoc;
 import edu.uiowa.nihfoa.foaType.FoaType;
+import edu.uiowa.nihfoa.guideDoc.GuideDoc;
 
 @SuppressWarnings("serial")
 public class ActivityCodeDeleter extends NIHFOATagLibBodyTagSupport {
@@ -30,20 +30,20 @@ public class ActivityCodeDeleter extends NIHFOATagLibBodyTagSupport {
     int rsCount = 0;
 
     public int doStartTag() throws JspException {
-		GuideDoc theGuideDoc = (GuideDoc)findAncestorWithClass(this, GuideDoc.class);
-		if (theGuideDoc!= null)
-			parentEntities.addElement(theGuideDoc);
 		FoaType theFoaType = (FoaType)findAncestorWithClass(this, FoaType.class);
 		if (theFoaType!= null)
 			parentEntities.addElement(theFoaType);
+		GuideDoc theGuideDoc = (GuideDoc)findAncestorWithClass(this, GuideDoc.class);
+		if (theGuideDoc!= null)
+			parentEntities.addElement(theGuideDoc);
 
-		if (theGuideDoc == null) {
-		} else {
-			ID = theGuideDoc.getID();
-		}
 		if (theFoaType == null) {
 		} else {
 			code = theFoaType.getCode();
+		}
+		if (theGuideDoc == null) {
+		} else {
+			ID = theGuideDoc.getID();
 		}
 
 

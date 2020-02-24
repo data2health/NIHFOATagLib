@@ -13,8 +13,8 @@ import javax.servlet.jsp.JspTagException;
 
 import edu.uiowa.nihfoa.NIHFOATagLibTagSupport;
 import edu.uiowa.nihfoa.NIHFOATagLibBodyTagSupport;
-import edu.uiowa.nihfoa.guideDoc.GuideDoc;
 import edu.uiowa.nihfoa.nihIc.NihIc;
+import edu.uiowa.nihfoa.guideDoc.GuideDoc;
 
 @SuppressWarnings("serial")
 public class PartIcIterator extends NIHFOATagLibBodyTagSupport {
@@ -32,36 +32,8 @@ public class PartIcIterator extends NIHFOATagLibBodyTagSupport {
     String var = null;
     int rsCount = 0;
 
-   boolean useGuideDoc = false;
    boolean useNihIc = false;
-
-	public static String partIcCountByGuideDoc(String ID) throws JspTagException {
-		int count = 0;
-		PartIcIterator theIterator = new PartIcIterator();
-		try {
-			PreparedStatement stat = theIterator.getConnection().prepareStatement("SELECT count(*) from NIH_FOA.part_ic where 1=1"
-						+ " and id = ?"
-						);
-
-			stat.setInt(1,Integer.parseInt(ID));
-			ResultSet crs = stat.executeQuery();
-
-			if (crs.next()) {
-				count = crs.getInt(1);
-			}
-			stat.close();
-		} catch (SQLException e) {
-			log.error("JDBC error generating PartIc iterator", e);
-			throw new JspTagException("Error: JDBC error generating PartIc iterator");
-		} finally {
-			theIterator.freeConnection();
-		}
-		return "" + count;
-	}
-
-	public static Boolean guideDocHasPartIc(String ID) throws JspTagException {
-		return ! partIcCountByGuideDoc(ID).equals("0");
-	}
+   boolean useGuideDoc = false;
 
 	public static String partIcCountByNihIc(String ic) throws JspTagException {
 		int count = 0;
@@ -91,6 +63,34 @@ public class PartIcIterator extends NIHFOATagLibBodyTagSupport {
 		return ! partIcCountByNihIc(ic).equals("0");
 	}
 
+	public static String partIcCountByGuideDoc(String ID) throws JspTagException {
+		int count = 0;
+		PartIcIterator theIterator = new PartIcIterator();
+		try {
+			PreparedStatement stat = theIterator.getConnection().prepareStatement("SELECT count(*) from NIH_FOA.part_ic where 1=1"
+						+ " and id = ?"
+						);
+
+			stat.setInt(1,Integer.parseInt(ID));
+			ResultSet crs = stat.executeQuery();
+
+			if (crs.next()) {
+				count = crs.getInt(1);
+			}
+			stat.close();
+		} catch (SQLException e) {
+			log.error("JDBC error generating PartIc iterator", e);
+			throw new JspTagException("Error: JDBC error generating PartIc iterator");
+		} finally {
+			theIterator.freeConnection();
+		}
+		return "" + count;
+	}
+
+	public static Boolean guideDocHasPartIc(String ID) throws JspTagException {
+		return ! partIcCountByGuideDoc(ID).equals("0");
+	}
+
 	public static Boolean partIcExists (String ID, String ic) throws JspTagException {
 		int count = 0;
 		PartIcIterator theIterator = new PartIcIterator();
@@ -117,17 +117,17 @@ public class PartIcIterator extends NIHFOATagLibBodyTagSupport {
 		return count > 0;
 	}
 
-	public static Boolean guideDocNihIcExists (String ID, String ic) throws JspTagException {
+	public static Boolean nihIcGuideDocExists (String ic, String ID) throws JspTagException {
 		int count = 0;
 		PartIcIterator theIterator = new PartIcIterator();
 		try {
 			PreparedStatement stat = theIterator.getConnection().prepareStatement("SELECT count(*) from NIH_FOA.part_ic where 1=1"
-						+ " and id = ?"
 						+ " and ic = ?"
+						+ " and id = ?"
 						);
 
-			stat.setInt(1,Integer.parseInt(ID));
-			stat.setString(2,ic);
+			stat.setString(1,ic);
+			stat.setInt(2,Integer.parseInt(ID));
 			ResultSet crs = stat.executeQuery();
 
 			if (crs.next()) {
@@ -144,20 +144,20 @@ public class PartIcIterator extends NIHFOATagLibBodyTagSupport {
 	}
 
     public int doStartTag() throws JspException {
-		GuideDoc theGuideDoc = (GuideDoc)findAncestorWithClass(this, GuideDoc.class);
-		if (theGuideDoc!= null)
-			parentEntities.addElement(theGuideDoc);
 		NihIc theNihIc = (NihIc)findAncestorWithClass(this, NihIc.class);
 		if (theNihIc!= null)
 			parentEntities.addElement(theNihIc);
+		GuideDoc theGuideDoc = (GuideDoc)findAncestorWithClass(this, GuideDoc.class);
+		if (theGuideDoc!= null)
+			parentEntities.addElement(theGuideDoc);
 
-		if (theGuideDoc == null) {
-		} else {
-			ID = theGuideDoc.getID();
-		}
 		if (theNihIc == null) {
 		} else {
 			ic = theNihIc.getIc();
+		}
+		if (theGuideDoc == null) {
+		} else {
+			ID = theGuideDoc.getID();
 		}
 
 
@@ -166,11 +166,11 @@ public class PartIcIterator extends NIHFOATagLibBodyTagSupport {
             int webapp_keySeq = 1;
             stat = getConnection().prepareStatement("SELECT count(*) from " + generateFromClause() + " where 1=1"
                                                         + generateJoinCriteria()
-                                                        + (ID == 0 ? "" : " and id = ?")
                                                         + (ic == null ? "" : " and ic = ?")
+                                                        + (ID == 0 ? "" : " and id = ?")
                                                         +  generateLimitCriteria());
-            if (ID != 0) stat.setInt(webapp_keySeq++, ID);
             if (ic != null) stat.setString(webapp_keySeq++, ic);
+            if (ID != 0) stat.setInt(webapp_keySeq++, ID);
             rs = stat.executeQuery();
 
             if (rs.next()) {
@@ -182,11 +182,11 @@ public class PartIcIterator extends NIHFOATagLibBodyTagSupport {
             webapp_keySeq = 1;
             stat = getConnection().prepareStatement("SELECT NIH_FOA.part_ic.id, NIH_FOA.part_ic.ic from " + generateFromClause() + " where 1=1"
                                                         + generateJoinCriteria()
-                                                        + (ID == 0 ? "" : " and id = ?")
                                                         + (ic == null ? "" : " and ic = ?")
+                                                        + (ID == 0 ? "" : " and id = ?")
                                                         + " order by " + generateSortCriteria() + generateLimitCriteria());
-            if (ID != 0) stat.setInt(webapp_keySeq++, ID);
             if (ic != null) stat.setString(webapp_keySeq++, ic);
+            if (ID != 0) stat.setInt(webapp_keySeq++, ID);
             rs = stat.executeQuery();
 
             if (rs.next()) {
@@ -207,20 +207,20 @@ public class PartIcIterator extends NIHFOATagLibBodyTagSupport {
 
     private String generateFromClause() {
        StringBuffer theBuffer = new StringBuffer("NIH_FOA.part_ic");
-       if (useGuideDoc)
-          theBuffer.append(", NIH_FOA.guide_doc");
        if (useNihIc)
           theBuffer.append(", NIH_FOA.nih_ic");
+       if (useGuideDoc)
+          theBuffer.append(", NIH_FOA.guide_doc");
 
       return theBuffer.toString();
     }
 
     private String generateJoinCriteria() {
        StringBuffer theBuffer = new StringBuffer();
-       if (useGuideDoc)
-          theBuffer.append(" and guide_doc.ID = part_ic.null");
        if (useNihIc)
           theBuffer.append(" and nih_ic.ic = part_ic.null");
+       if (useGuideDoc)
+          theBuffer.append(" and guide_doc.ID = part_ic.null");
 
       return theBuffer.toString();
     }
@@ -309,20 +309,20 @@ public class PartIcIterator extends NIHFOATagLibBodyTagSupport {
     }
 
 
-   public boolean getUseGuideDoc() {
-        return useGuideDoc;
-    }
-
-    public void setUseGuideDoc(boolean useGuideDoc) {
-        this.useGuideDoc = useGuideDoc;
-    }
-
    public boolean getUseNihIc() {
         return useNihIc;
     }
 
     public void setUseNihIc(boolean useNihIc) {
         this.useNihIc = useNihIc;
+    }
+
+   public boolean getUseGuideDoc() {
+        return useGuideDoc;
+    }
+
+    public void setUseGuideDoc(boolean useGuideDoc) {
+        this.useGuideDoc = useGuideDoc;
     }
 
 

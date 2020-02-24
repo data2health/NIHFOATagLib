@@ -4,6 +4,7 @@
 .settings/org.eclipse.jdt.core.prefs -text
 .settings/org.eclipse.wst.common.component -text
 .settings/org.eclipse.wst.common.project.facet.core.xml svneol=native#text/xml
+.settings/org.eclipse.wst.validation.prefs -text
 .settings/org.maven.ide.eclipse.prefs -text
 /pom.xml svneol=native#text/xml
 src/main/java/edu/uiowa/nihfoa/DBTest.java svneol=native#text/x-java-source
