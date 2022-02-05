@@ -5,11 +5,11 @@
 	version="2.0">
 	<tlib-version>2.1</tlib-version>
 	<short-name>simp</short-name>
-	<uri>http://icts.uiowa.edu/nihfoa</uri>
+	<uri>http://icts.uiowa.edu/n3c</uri>
 
 	<tag>
 		<name>getSequenceNumber</name>
-		<tag-class>edu.uiowa.nihfoa.Sequence</tag-class>
+		<tag-class>org.cd2h.n3c.Sequence</tag-class>
 		<body-content>empty</body-content>
 
 		<attribute>
@@ -21,13 +21,13 @@
 
 	<tag>
 		<name>dbtest</name>
-		<tag-class>edu.uiowa.nihfoa.DBTest</tag-class>
+		<tag-class>org.cd2h.n3c.DBTest</tag-class>
 		<body-content>empty</body-content>
 	</tag>
 
 	<tag>
 		<name>foreachGuideDoc</name>
-		<tag-class>edu.uiowa.nihfoa.guideDoc.GuideDocIterator</tag-class>
+		<tag-class>org.cd2h.n3c.guideDoc.GuideDocIterator</tag-class>
 		<body-content>JSP</body-content>
 
 		<attribute>
@@ -57,7 +57,7 @@
 
 	<tag>
 		<name>guideDoc</name>
-		<tag-class>edu.uiowa.nihfoa.guideDoc.GuideDoc</tag-class>
+		<tag-class>org.cd2h.n3c.guideDoc.GuideDoc</tag-class>
 		<body-content>JSP</body-content>
 
 		<attribute>
@@ -75,7 +75,7 @@
 
 	<tag>
 		<name>deleteGuideDoc</name>
-		<tag-class>edu.uiowa.nihfoa.guideDoc.GuideDocDeleter</tag-class>
+		<tag-class>org.cd2h.n3c.guideDoc.GuideDocDeleter</tag-class>
 		<body-content>JSP</body-content>
 
 		<attribute>
@@ -87,7 +87,7 @@
 
 	<tag>
 		<name>guideDocID</name>
-		<tag-class>edu.uiowa.nihfoa.guideDoc.GuideDocID</tag-class>
+		<tag-class>org.cd2h.n3c.guideDoc.GuideDocID</tag-class>
 		<body-content>empty</body-content>
 
 		<attribute>
@@ -99,7 +99,7 @@
 
 	<tag>
 		<name>guideDocPrimaryIc</name>
-		<tag-class>edu.uiowa.nihfoa.guideDoc.GuideDocPrimaryIc</tag-class>
+		<tag-class>org.cd2h.n3c.guideDoc.GuideDocPrimaryIc</tag-class>
 		<body-content>empty</body-content>
 
 		<attribute>
@@ -111,7 +111,7 @@
 
 	<tag>
 		<name>guideDocTitle</name>
-		<tag-class>edu.uiowa.nihfoa.guideDoc.GuideDocTitle</tag-class>
+		<tag-class>org.cd2h.n3c.guideDoc.GuideDocTitle</tag-class>
 		<body-content>empty</body-content>
 
 		<attribute>
@@ -123,7 +123,7 @@
 
 	<tag>
 		<name>guideDocPurpose</name>
-		<tag-class>edu.uiowa.nihfoa.guideDoc.GuideDocPurpose</tag-class>
+		<tag-class>org.cd2h.n3c.guideDoc.GuideDocPurpose</tag-class>
 		<body-content>empty</body-content>
 
 		<attribute>
@@ -135,7 +135,7 @@
 
 	<tag>
 		<name>guideDocRelNote</name>
-		<tag-class>edu.uiowa.nihfoa.guideDoc.GuideDocRelNote</tag-class>
+		<tag-class>org.cd2h.n3c.guideDoc.GuideDocRelNote</tag-class>
 		<body-content>empty</body-content>
 
 		<attribute>
@@ -147,7 +147,7 @@
 
 	<tag>
 		<name>guideDocFaDirectCosts</name>
-		<tag-class>edu.uiowa.nihfoa.guideDoc.GuideDocFaDirectCosts</tag-class>
+		<tag-class>org.cd2h.n3c.guideDoc.GuideDocFaDirectCosts</tag-class>
 		<body-content>empty</body-content>
 
 		<attribute>
@@ -159,7 +159,7 @@
 
 	<tag>
 		<name>guideDocGuideLink</name>
-		<tag-class>edu.uiowa.nihfoa.guideDoc.GuideDocGuideLink</tag-class>
+		<tag-class>org.cd2h.n3c.guideDoc.GuideDocGuideLink</tag-class>
 		<body-content>empty</body-content>
 
 		<attribute>
@@ -171,7 +171,7 @@
 
 	<tag>
 		<name>guideDocRelDate</name>
-		<tag-class>edu.uiowa.nihfoa.guideDoc.GuideDocRelDate</tag-class>
+		<tag-class>org.cd2h.n3c.guideDoc.GuideDocRelDate</tag-class>
 		<body-content>empty</body-content>
 
 		<attribute>
@@ -179,35 +179,11 @@
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
-
-		<attribute>
-			<name>type</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-		</attribute>
-
-		<attribute>
-			<name>dateStyle</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-		</attribute>
-
-		<attribute>
-			<name>timeStyle</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-		</attribute>
-
-		<attribute>
-			<name>pattern</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-		</attribute>
 	</tag>
 
 	<tag>
 		<name>guideDocRelDateToNow</name>
-		<tag-class>edu.uiowa.nihfoa.guideDoc.GuideDocRelDateToNow</tag-class>
+		<tag-class>org.cd2h.n3c.guideDoc.GuideDocRelDateToNow</tag-class>
 		<body-content>empty</body-content>
 
 		<attribute>
@@ -219,7 +195,7 @@
 
 	<tag>
 		<name>guideDocIntentDate</name>
-		<tag-class>edu.uiowa.nihfoa.guideDoc.GuideDocIntentDate</tag-class>
+		<tag-class>org.cd2h.n3c.guideDoc.GuideDocIntentDate</tag-class>
 		<body-content>empty</body-content>
 
 		<attribute>
@@ -231,7 +207,7 @@
 
 	<tag>
 		<name>guideDocAppReceiptDate</name>
-		<tag-class>edu.uiowa.nihfoa.guideDoc.GuideDocAppReceiptDate</tag-class>
+		<tag-class>org.cd2h.n3c.guideDoc.GuideDocAppReceiptDate</tag-class>
 		<body-content>empty</body-content>
 
 		<attribute>
@@ -243,7 +219,7 @@
 
 	<tag>
 		<name>guideDocLard</name>
-		<tag-class>edu.uiowa.nihfoa.guideDoc.GuideDocLard</tag-class>
+		<tag-class>org.cd2h.n3c.guideDoc.GuideDocLard</tag-class>
 		<body-content>empty</body-content>
 
 		<attribute>
@@ -251,35 +227,11 @@
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
-
-		<attribute>
-			<name>type</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-		</attribute>
-
-		<attribute>
-			<name>dateStyle</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-		</attribute>
-
-		<attribute>
-			<name>timeStyle</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-		</attribute>
-
-		<attribute>
-			<name>pattern</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-		</attribute>
 	</tag>
 
 	<tag>
 		<name>guideDocLardToNow</name>
-		<tag-class>edu.uiowa.nihfoa.guideDoc.GuideDocLardToNow</tag-class>
+		<tag-class>org.cd2h.n3c.guideDoc.GuideDocLardToNow</tag-class>
 		<body-content>empty</body-content>
 
 		<attribute>
@@ -291,7 +243,7 @@
 
 	<tag>
 		<name>guideDocFileName</name>
-		<tag-class>edu.uiowa.nihfoa.guideDoc.GuideDocFileName</tag-class>
+		<tag-class>org.cd2h.n3c.guideDoc.GuideDocFileName</tag-class>
 		<body-content>empty</body-content>
 
 		<attribute>
@@ -303,7 +255,7 @@
 
 	<tag>
 		<name>guideDocDocType</name>
-		<tag-class>edu.uiowa.nihfoa.guideDoc.GuideDocDocType</tag-class>
+		<tag-class>org.cd2h.n3c.guideDoc.GuideDocDocType</tag-class>
 		<body-content>empty</body-content>
 
 		<attribute>
@@ -315,7 +267,7 @@
 
 	<tag>
 		<name>guideDocDocNum</name>
-		<tag-class>edu.uiowa.nihfoa.guideDoc.GuideDocDocNum</tag-class>
+		<tag-class>org.cd2h.n3c.guideDoc.GuideDocDocNum</tag-class>
 		<body-content>empty</body-content>
 
 		<attribute>
@@ -327,7 +279,7 @@
 
 	<tag>
 		<name>guideDocExpirationDate</name>
-		<tag-class>edu.uiowa.nihfoa.guideDoc.GuideDocExpirationDate</tag-class>
+		<tag-class>org.cd2h.n3c.guideDoc.GuideDocExpirationDate</tag-class>
 		<body-content>empty</body-content>
 
 		<attribute>
@@ -335,35 +287,11 @@
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
-
-		<attribute>
-			<name>type</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-		</attribute>
-
-		<attribute>
-			<name>dateStyle</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-		</attribute>
-
-		<attribute>
-			<name>timeStyle</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-		</attribute>
-
-		<attribute>
-			<name>pattern</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-		</attribute>
 	</tag>
 
 	<tag>
 		<name>guideDocExpirationDateToNow</name>
-		<tag-class>edu.uiowa.nihfoa.guideDoc.GuideDocExpirationDateToNow</tag-class>
+		<tag-class>org.cd2h.n3c.guideDoc.GuideDocExpirationDateToNow</tag-class>
 		<body-content>empty</body-content>
 
 		<attribute>
@@ -375,7 +303,7 @@
 
 	<tag>
 		<name>foreachPartIc</name>
-		<tag-class>edu.uiowa.nihfoa.partIc.PartIcIterator</tag-class>
+		<tag-class>org.cd2h.n3c.partIc.PartIcIterator</tag-class>
 		<body-content>JSP</body-content>
 
 		<attribute>
@@ -424,7 +352,7 @@
 
 	<tag>
 		<name>partIc</name>
-		<tag-class>edu.uiowa.nihfoa.partIc.PartIc</tag-class>
+		<tag-class>org.cd2h.n3c.partIc.PartIc</tag-class>
 		<body-content>JSP</body-content>
 
 		<attribute>
@@ -448,7 +376,7 @@
 
 	<tag>
 		<name>deletePartIc</name>
-		<tag-class>edu.uiowa.nihfoa.partIc.PartIcDeleter</tag-class>
+		<tag-class>org.cd2h.n3c.partIc.PartIcDeleter</tag-class>
 		<body-content>JSP</body-content>
 
 		<attribute>
@@ -466,7 +394,7 @@
 
 	<tag>
 		<name>partIcID</name>
-		<tag-class>edu.uiowa.nihfoa.partIc.PartIcID</tag-class>
+		<tag-class>org.cd2h.n3c.partIc.PartIcID</tag-class>
 		<body-content>empty</body-content>
 
 		<attribute>
@@ -478,7 +406,7 @@
 
 	<tag>
 		<name>partIcIc</name>
-		<tag-class>edu.uiowa.nihfoa.partIc.PartIcIc</tag-class>
+		<tag-class>org.cd2h.n3c.partIc.PartIcIc</tag-class>
 		<body-content>empty</body-content>
 
 		<attribute>
@@ -490,7 +418,7 @@
 
 	<tag>
 		<name>foreachActivityCode</name>
-		<tag-class>edu.uiowa.nihfoa.activityCode.ActivityCodeIterator</tag-class>
+		<tag-class>org.cd2h.n3c.activityCode.ActivityCodeIterator</tag-class>
 		<body-content>JSP</body-content>
 
 		<attribute>
@@ -539,7 +467,7 @@
 
 	<tag>
 		<name>activityCode</name>
-		<tag-class>edu.uiowa.nihfoa.activityCode.ActivityCode</tag-class>
+		<tag-class>org.cd2h.n3c.activityCode.ActivityCode</tag-class>
 		<body-content>JSP</body-content>
 
 		<attribute>
@@ -563,7 +491,7 @@
 
 	<tag>
 		<name>deleteActivityCode</name>
-		<tag-class>edu.uiowa.nihfoa.activityCode.ActivityCodeDeleter</tag-class>
+		<tag-class>org.cd2h.n3c.activityCode.ActivityCodeDeleter</tag-class>
 		<body-content>JSP</body-content>
 
 		<attribute>
@@ -581,7 +509,7 @@
 
 	<tag>
 		<name>activityCodeID</name>
-		<tag-class>edu.uiowa.nihfoa.activityCode.ActivityCodeID</tag-class>
+		<tag-class>org.cd2h.n3c.activityCode.ActivityCodeID</tag-class>
 		<body-content>empty</body-content>
 
 		<attribute>
@@ -593,7 +521,7 @@
 
 	<tag>
 		<name>activityCodeCode</name>
-		<tag-class>edu.uiowa.nihfoa.activityCode.ActivityCodeCode</tag-class>
+		<tag-class>org.cd2h.n3c.activityCode.ActivityCodeCode</tag-class>
 		<body-content>empty</body-content>
 
 		<attribute>
@@ -605,7 +533,7 @@
 
 	<tag>
 		<name>foreachFoaType</name>
-		<tag-class>edu.uiowa.nihfoa.foaType.FoaTypeIterator</tag-class>
+		<tag-class>org.cd2h.n3c.foaType.FoaTypeIterator</tag-class>
 		<body-content>JSP</body-content>
 
 		<attribute>
@@ -635,7 +563,7 @@
 
 	<tag>
 		<name>foaType</name>
-		<tag-class>edu.uiowa.nihfoa.foaType.FoaType</tag-class>
+		<tag-class>org.cd2h.n3c.foaType.FoaType</tag-class>
 		<body-content>JSP</body-content>
 
 		<attribute>
@@ -653,7 +581,7 @@
 
 	<tag>
 		<name>deleteFoaType</name>
-		<tag-class>edu.uiowa.nihfoa.foaType.FoaTypeDeleter</tag-class>
+		<tag-class>org.cd2h.n3c.foaType.FoaTypeDeleter</tag-class>
 		<body-content>JSP</body-content>
 
 		<attribute>
@@ -665,7 +593,7 @@
 
 	<tag>
 		<name>foaTypeCode</name>
-		<tag-class>edu.uiowa.nihfoa.foaType.FoaTypeCode</tag-class>
+		<tag-class>org.cd2h.n3c.foaType.FoaTypeCode</tag-class>
 		<body-content>empty</body-content>
 
 		<attribute>
@@ -677,7 +605,7 @@
 
 	<tag>
 		<name>foaTypeCategory</name>
-		<tag-class>edu.uiowa.nihfoa.foaType.FoaTypeCategory</tag-class>
+		<tag-class>org.cd2h.n3c.foaType.FoaTypeCategory</tag-class>
 		<body-content>empty</body-content>
 
 		<attribute>
@@ -689,7 +617,7 @@
 
 	<tag>
 		<name>foaTypeTitle</name>
-		<tag-class>edu.uiowa.nihfoa.foaType.FoaTypeTitle</tag-class>
+		<tag-class>org.cd2h.n3c.foaType.FoaTypeTitle</tag-class>
 		<body-content>empty</body-content>
 
 		<attribute>
@@ -701,7 +629,7 @@
 
 	<tag>
 		<name>foaTypeDescription</name>
-		<tag-class>edu.uiowa.nihfoa.foaType.FoaTypeDescription</tag-class>
+		<tag-class>org.cd2h.n3c.foaType.FoaTypeDescription</tag-class>
 		<body-content>empty</body-content>
 
 		<attribute>
@@ -713,7 +641,7 @@
 
 	<tag>
 		<name>foaTypeInfoLink</name>
-		<tag-class>edu.uiowa.nihfoa.foaType.FoaTypeInfoLink</tag-class>
+		<tag-class>org.cd2h.n3c.foaType.FoaTypeInfoLink</tag-class>
 		<body-content>empty</body-content>
 
 		<attribute>
@@ -725,7 +653,7 @@
 
 	<tag>
 		<name>foreachNihIc</name>
-		<tag-class>edu.uiowa.nihfoa.nihIc.NihIcIterator</tag-class>
+		<tag-class>org.cd2h.n3c.nihIc.NihIcIterator</tag-class>
 		<body-content>JSP</body-content>
 
 		<attribute>
@@ -755,7 +683,7 @@
 
 	<tag>
 		<name>nihIc</name>
-		<tag-class>edu.uiowa.nihfoa.nihIc.NihIc</tag-class>
+		<tag-class>org.cd2h.n3c.nihIc.NihIc</tag-class>
 		<body-content>JSP</body-content>
 
 		<attribute>
@@ -773,7 +701,7 @@
 
 	<tag>
 		<name>deleteNihIc</name>
-		<tag-class>edu.uiowa.nihfoa.nihIc.NihIcDeleter</tag-class>
+		<tag-class>org.cd2h.n3c.nihIc.NihIcDeleter</tag-class>
 		<body-content>JSP</body-content>
 
 		<attribute>
@@ -785,7 +713,7 @@
 
 	<tag>
 		<name>nihIcIc</name>
-		<tag-class>edu.uiowa.nihfoa.nihIc.NihIcIc</tag-class>
+		<tag-class>org.cd2h.n3c.nihIc.NihIcIc</tag-class>
 		<body-content>empty</body-content>
 
 		<attribute>
@@ -797,7 +725,7 @@
 
 	<tag>
 		<name>nihIcTitle</name>
-		<tag-class>edu.uiowa.nihfoa.nihIc.NihIcTitle</tag-class>
+		<tag-class>org.cd2h.n3c.nihIc.NihIcTitle</tag-class>
 		<body-content>empty</body-content>
 
 		<attribute>
@@ -809,7 +737,7 @@
 
 	<tag>
 		<name>nihIcDescription</name>
-		<tag-class>edu.uiowa.nihfoa.nihIc.NihIcDescription</tag-class>
+		<tag-class>org.cd2h.n3c.nihIc.NihIcDescription</tag-class>
 		<body-content>empty</body-content>
 
 		<attribute>
@@ -821,7 +749,7 @@
 
 	<tag>
 		<name>nihIcLogoLink</name>
-		<tag-class>edu.uiowa.nihfoa.nihIc.NihIcLogoLink</tag-class>
+		<tag-class>org.cd2h.n3c.nihIc.NihIcLogoLink</tag-class>
 		<body-content>empty</body-content>
 
 		<attribute>
@@ -833,7 +761,7 @@
 
 	<tag>
 		<name>nihIcInfoLink</name>
-		<tag-class>edu.uiowa.nihfoa.nihIc.NihIcInfoLink</tag-class>
+		<tag-class>org.cd2h.n3c.nihIc.NihIcInfoLink</tag-class>
 		<body-content>empty</body-content>
 
 		<attribute>
@@ -845,7 +773,7 @@
 
 	<tag>
 		<name>nihIcCategory</name>
-		<tag-class>edu.uiowa.nihfoa.nihIc.NihIcCategory</tag-class>
+		<tag-class>org.cd2h.n3c.nihIc.NihIcCategory</tag-class>
 		<body-content>empty</body-content>
 
 		<attribute>
@@ -857,7 +785,7 @@
 
 	<tag>
 		<name>foreachContent</name>
-		<tag-class>edu.uiowa.nihfoa.content.ContentIterator</tag-class>
+		<tag-class>org.cd2h.n3c.content.ContentIterator</tag-class>
 		<body-content>JSP</body-content>
 
 		<attribute>
@@ -887,7 +815,7 @@
 
 	<tag>
 		<name>content</name>
-		<tag-class>edu.uiowa.nihfoa.content.Content</tag-class>
+		<tag-class>org.cd2h.n3c.content.Content</tag-class>
 		<body-content>JSP</body-content>
 
 		<attribute>
@@ -905,7 +833,7 @@
 
 	<tag>
 		<name>deleteContent</name>
-		<tag-class>edu.uiowa.nihfoa.content.ContentDeleter</tag-class>
+		<tag-class>org.cd2h.n3c.content.ContentDeleter</tag-class>
 		<body-content>JSP</body-content>
 
 		<attribute>
@@ -917,7 +845,7 @@
 
 	<tag>
 		<name>contentID</name>
-		<tag-class>edu.uiowa.nihfoa.content.ContentID</tag-class>
+		<tag-class>org.cd2h.n3c.content.ContentID</tag-class>
 		<body-content>empty</body-content>
 
 		<attribute>
@@ -929,7 +857,7 @@
 
 	<tag>
 		<name>contentHtml</name>
-		<tag-class>edu.uiowa.nihfoa.content.ContentHtml</tag-class>
+		<tag-class>org.cd2h.n3c.content.ContentHtml</tag-class>
 		<body-content>empty</body-content>
 
 		<attribute>
@@ -941,7 +869,7 @@
 
 	<tag>
 		<name>foreachInvestigator</name>
-		<tag-class>edu.uiowa.nihfoa.investigator.InvestigatorIterator</tag-class>
+		<tag-class>org.cd2h.n3c.investigator.InvestigatorIterator</tag-class>
 		<body-content>JSP</body-content>
 
 		<attribute>
@@ -971,7 +899,7 @@
 
 	<tag>
 		<name>investigator</name>
-		<tag-class>edu.uiowa.nihfoa.investigator.Investigator</tag-class>
+		<tag-class>org.cd2h.n3c.investigator.Investigator</tag-class>
 		<body-content>JSP</body-content>
 
 		<attribute>
@@ -989,7 +917,7 @@
 
 	<tag>
 		<name>deleteInvestigator</name>
-		<tag-class>edu.uiowa.nihfoa.investigator.InvestigatorDeleter</tag-class>
+		<tag-class>org.cd2h.n3c.investigator.InvestigatorDeleter</tag-class>
 		<body-content>JSP</body-content>
 
 		<attribute>
@@ -1001,7 +929,7 @@
 
 	<tag>
 		<name>investigatorUid</name>
-		<tag-class>edu.uiowa.nihfoa.investigator.InvestigatorUid</tag-class>
+		<tag-class>org.cd2h.n3c.investigator.InvestigatorUid</tag-class>
 		<body-content>empty</body-content>
 
 		<attribute>
@@ -1013,7 +941,7 @@
 
 	<tag>
 		<name>investigatorMode</name>
-		<tag-class>edu.uiowa.nihfoa.investigator.InvestigatorMode</tag-class>
+		<tag-class>org.cd2h.n3c.investigator.InvestigatorMode</tag-class>
 		<body-content>empty</body-content>
 
 		<attribute>
@@ -1025,7 +953,7 @@
 
 	<tag>
 		<name>investigatorLastCheck</name>
-		<tag-class>edu.uiowa.nihfoa.investigator.InvestigatorLastCheck</tag-class>
+		<tag-class>org.cd2h.n3c.investigator.InvestigatorLastCheck</tag-class>
 		<body-content>empty</body-content>
 
 		<attribute>
@@ -1033,35 +961,11 @@
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
-
-		<attribute>
-			<name>type</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-		</attribute>
-
-		<attribute>
-			<name>dateStyle</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-		</attribute>
-
-		<attribute>
-			<name>timeStyle</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-		</attribute>
-
-		<attribute>
-			<name>pattern</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-		</attribute>
 	</tag>
 
 	<tag>
 		<name>investigatorLastCheckToNow</name>
-		<tag-class>edu.uiowa.nihfoa.investigator.InvestigatorLastCheckToNow</tag-class>
+		<tag-class>org.cd2h.n3c.investigator.InvestigatorLastCheckToNow</tag-class>
 		<body-content>empty</body-content>
 
 		<attribute>
@@ -1073,7 +977,7 @@
 
 	<tag>
 		<name>foreachInterest</name>
-		<tag-class>edu.uiowa.nihfoa.interest.InterestIterator</tag-class>
+		<tag-class>org.cd2h.n3c.interest.InterestIterator</tag-class>
 		<body-content>JSP</body-content>
 
 		<attribute>
@@ -1122,7 +1026,7 @@
 
 	<tag>
 		<name>interest</name>
-		<tag-class>edu.uiowa.nihfoa.interest.Interest</tag-class>
+		<tag-class>org.cd2h.n3c.interest.Interest</tag-class>
 		<body-content>JSP</body-content>
 
 		<attribute>
@@ -1146,7 +1050,7 @@
 
 	<tag>
 		<name>deleteInterest</name>
-		<tag-class>edu.uiowa.nihfoa.interest.InterestDeleter</tag-class>
+		<tag-class>org.cd2h.n3c.interest.InterestDeleter</tag-class>
 		<body-content>JSP</body-content>
 
 		<attribute>
@@ -1164,7 +1068,7 @@
 
 	<tag>
 		<name>interestUid</name>
-		<tag-class>edu.uiowa.nihfoa.interest.InterestUid</tag-class>
+		<tag-class>org.cd2h.n3c.interest.InterestUid</tag-class>
 		<body-content>empty</body-content>
 
 		<attribute>
@@ -1176,7 +1080,7 @@
 
 	<tag>
 		<name>interestID</name>
-		<tag-class>edu.uiowa.nihfoa.interest.InterestID</tag-class>
+		<tag-class>org.cd2h.n3c.interest.InterestID</tag-class>
 		<body-content>empty</body-content>
 
 		<attribute>
@@ -1186,232 +1090,171 @@
 		</attribute>
 	</tag>
 
-	<tag>
-		<name>foreachGuideDocByPrimary</name>
-		<tag-class>edu.uiowa.nihfoa.guideDoc.GuideDocIteratorByPrimary</tag-class>
-		<body-content>JSP</body-content>
-
-		<attribute>
-			<name>var</name>
-			<required>true</required>
-			<rtexprvalue>false</rtexprvalue>
-		</attribute>
-
-		<attribute>
-			<name>primaryIc</name>
-			<required>true</required>
-			<rtexprvalue>true</rtexprvalue>
-		</attribute>
-
-		<attribute>
-			<name>sortCriteria</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-		</attribute>
-
-		<attribute>
-			<name>limitCriteria</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-		</attribute>
-
-		<attribute>
-			<name>ID</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-		</attribute>
-	</tag>
-
-	<tag>
-		<name>luceneIndex</name>
-		<tag-class>edu.uiowa.nihfoa.LuceneIndex</tag-class>
-		<body-content>JSP</body-content>
-
-		<attribute>
-			<name>truncate</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-		</attribute>
-
-		<attribute>
-			<name>lucenePath</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-		</attribute>
-	</tag>
-
 	<function>
 		<name>guideDocCount</name>
-		<function-class>edu.uiowa.nihfoa.guideDoc.GuideDocIterator</function-class>
+		<function-class>org.cd2h.n3c.guideDoc.GuideDocIterator</function-class>
 		<function-signature>java.lang.String guideDocCount()</function-signature>
 	</function>
 
 	<function>
 		<name>guideDocExists</name>
-		<function-class>edu.uiowa.nihfoa.guideDoc.GuideDocIterator</function-class>
+		<function-class>org.cd2h.n3c.guideDoc.GuideDocIterator</function-class>
 		<function-signature>java.lang.String guideDocExists(java.lang.String)</function-signature>
 	</function>
 
 	<function>
 		<name>partIcExists</name>
-		<function-class>edu.uiowa.nihfoa.partIc.PartIcIterator</function-class>
+		<function-class>org.cd2h.n3c.partIc.PartIcIterator</function-class>
 		<function-signature>java.lang.String partIcExists(java.lang.String, java.lang.String)</function-signature>
 	</function>
 
 	<function>
 		<name>partIcCountByNihIc</name>
-		<function-class>edu.uiowa.nihfoa.partIc.PartIcIterator</function-class>
+		<function-class>org.cd2h.n3c.partIc.PartIcIterator</function-class>
 		<function-signature>java.lang.String partIcCountByNihIc(java.lang.String)</function-signature>
 	</function>
 
 	<function>
 		<name>nihIcHasPartIc</name>
-		<function-class>edu.uiowa.nihfoa.partIc.PartIcIterator</function-class>
+		<function-class>org.cd2h.n3c.partIc.PartIcIterator</function-class>
 		<function-signature>java.lang.Boolean nihIcHasPartIc(java.lang.String)</function-signature>
 	</function>
 
 	<function>
 		<name>partIcCountByGuideDoc</name>
-		<function-class>edu.uiowa.nihfoa.partIc.PartIcIterator</function-class>
+		<function-class>org.cd2h.n3c.partIc.PartIcIterator</function-class>
 		<function-signature>java.lang.String partIcCountByGuideDoc(java.lang.String)</function-signature>
 	</function>
 
 	<function>
 		<name>guideDocHasPartIc</name>
-		<function-class>edu.uiowa.nihfoa.partIc.PartIcIterator</function-class>
+		<function-class>org.cd2h.n3c.partIc.PartIcIterator</function-class>
 		<function-signature>java.lang.Boolean guideDocHasPartIc(java.lang.String)</function-signature>
 	</function>
 
 	<function>
 		<name>nihIcGuideDocExists</name>
-		<function-class>edu.uiowa.nihfoa.partIc.PartIcIterator</function-class>
+		<function-class>org.cd2h.n3c.partIc.PartIcIterator</function-class>
 		<function-signature>java.lang.Boolean nihIcGuideDocExists(java.lang.String, java.lang.String)</function-signature>
 	</function>
 
 	<function>
 		<name>activityCodeExists</name>
-		<function-class>edu.uiowa.nihfoa.activityCode.ActivityCodeIterator</function-class>
+		<function-class>org.cd2h.n3c.activityCode.ActivityCodeIterator</function-class>
 		<function-signature>java.lang.String activityCodeExists(java.lang.String, java.lang.String)</function-signature>
 	</function>
 
 	<function>
 		<name>activityCodeCountByFoaType</name>
-		<function-class>edu.uiowa.nihfoa.activityCode.ActivityCodeIterator</function-class>
+		<function-class>org.cd2h.n3c.activityCode.ActivityCodeIterator</function-class>
 		<function-signature>java.lang.String activityCodeCountByFoaType(java.lang.String)</function-signature>
 	</function>
 
 	<function>
 		<name>foaTypeHasActivityCode</name>
-		<function-class>edu.uiowa.nihfoa.activityCode.ActivityCodeIterator</function-class>
+		<function-class>org.cd2h.n3c.activityCode.ActivityCodeIterator</function-class>
 		<function-signature>java.lang.Boolean foaTypeHasActivityCode(java.lang.String)</function-signature>
 	</function>
 
 	<function>
 		<name>activityCodeCountByGuideDoc</name>
-		<function-class>edu.uiowa.nihfoa.activityCode.ActivityCodeIterator</function-class>
+		<function-class>org.cd2h.n3c.activityCode.ActivityCodeIterator</function-class>
 		<function-signature>java.lang.String activityCodeCountByGuideDoc(java.lang.String)</function-signature>
 	</function>
 
 	<function>
 		<name>guideDocHasActivityCode</name>
-		<function-class>edu.uiowa.nihfoa.activityCode.ActivityCodeIterator</function-class>
+		<function-class>org.cd2h.n3c.activityCode.ActivityCodeIterator</function-class>
 		<function-signature>java.lang.Boolean guideDocHasActivityCode(java.lang.String)</function-signature>
 	</function>
 
 	<function>
 		<name>foaTypeGuideDocExists</name>
-		<function-class>edu.uiowa.nihfoa.activityCode.ActivityCodeIterator</function-class>
+		<function-class>org.cd2h.n3c.activityCode.ActivityCodeIterator</function-class>
 		<function-signature>java.lang.Boolean foaTypeGuideDocExists(java.lang.String, java.lang.String)</function-signature>
 	</function>
 
 	<function>
 		<name>foaTypeCount</name>
-		<function-class>edu.uiowa.nihfoa.foaType.FoaTypeIterator</function-class>
+		<function-class>org.cd2h.n3c.foaType.FoaTypeIterator</function-class>
 		<function-signature>java.lang.String foaTypeCount()</function-signature>
 	</function>
 
 	<function>
 		<name>foaTypeExists</name>
-		<function-class>edu.uiowa.nihfoa.foaType.FoaTypeIterator</function-class>
+		<function-class>org.cd2h.n3c.foaType.FoaTypeIterator</function-class>
 		<function-signature>java.lang.String foaTypeExists(java.lang.String)</function-signature>
 	</function>
 
 	<function>
 		<name>nihIcCount</name>
-		<function-class>edu.uiowa.nihfoa.nihIc.NihIcIterator</function-class>
+		<function-class>org.cd2h.n3c.nihIc.NihIcIterator</function-class>
 		<function-signature>java.lang.String nihIcCount()</function-signature>
 	</function>
 
 	<function>
 		<name>nihIcExists</name>
-		<function-class>edu.uiowa.nihfoa.nihIc.NihIcIterator</function-class>
+		<function-class>org.cd2h.n3c.nihIc.NihIcIterator</function-class>
 		<function-signature>java.lang.String nihIcExists(java.lang.String)</function-signature>
 	</function>
 
 	<function>
 		<name>contentCount</name>
-		<function-class>edu.uiowa.nihfoa.content.ContentIterator</function-class>
+		<function-class>org.cd2h.n3c.content.ContentIterator</function-class>
 		<function-signature>java.lang.String contentCount()</function-signature>
 	</function>
 
 	<function>
 		<name>contentExists</name>
-		<function-class>edu.uiowa.nihfoa.content.ContentIterator</function-class>
+		<function-class>org.cd2h.n3c.content.ContentIterator</function-class>
 		<function-signature>java.lang.String contentExists(java.lang.String)</function-signature>
 	</function>
 
 	<function>
 		<name>investigatorCount</name>
-		<function-class>edu.uiowa.nihfoa.investigator.InvestigatorIterator</function-class>
+		<function-class>org.cd2h.n3c.investigator.InvestigatorIterator</function-class>
 		<function-signature>java.lang.String investigatorCount()</function-signature>
 	</function>
 
 	<function>
 		<name>investigatorExists</name>
-		<function-class>edu.uiowa.nihfoa.investigator.InvestigatorIterator</function-class>
+		<function-class>org.cd2h.n3c.investigator.InvestigatorIterator</function-class>
 		<function-signature>java.lang.String investigatorExists(java.lang.String)</function-signature>
 	</function>
 
 	<function>
 		<name>interestExists</name>
-		<function-class>edu.uiowa.nihfoa.interest.InterestIterator</function-class>
+		<function-class>org.cd2h.n3c.interest.InterestIterator</function-class>
 		<function-signature>java.lang.String interestExists(java.lang.String, java.lang.String)</function-signature>
 	</function>
 
 	<function>
 		<name>interestCountByGuideDoc</name>
-		<function-class>edu.uiowa.nihfoa.interest.InterestIterator</function-class>
+		<function-class>org.cd2h.n3c.interest.InterestIterator</function-class>
 		<function-signature>java.lang.String interestCountByGuideDoc(java.lang.String)</function-signature>
 	</function>
 
 	<function>
 		<name>guideDocHasInterest</name>
-		<function-class>edu.uiowa.nihfoa.interest.InterestIterator</function-class>
+		<function-class>org.cd2h.n3c.interest.InterestIterator</function-class>
 		<function-signature>java.lang.Boolean guideDocHasInterest(java.lang.String)</function-signature>
 	</function>
 
 	<function>
 		<name>interestCountByInvestigator</name>
-		<function-class>edu.uiowa.nihfoa.interest.InterestIterator</function-class>
+		<function-class>org.cd2h.n3c.interest.InterestIterator</function-class>
 		<function-signature>java.lang.String interestCountByInvestigator(java.lang.String)</function-signature>
 	</function>
 
 	<function>
 		<name>investigatorHasInterest</name>
-		<function-class>edu.uiowa.nihfoa.interest.InterestIterator</function-class>
+		<function-class>org.cd2h.n3c.interest.InterestIterator</function-class>
 		<function-signature>java.lang.Boolean investigatorHasInterest(java.lang.String)</function-signature>
 	</function>
 
 	<function>
 		<name>guideDocInvestigatorExists</name>
-		<function-class>edu.uiowa.nihfoa.interest.InterestIterator</function-class>
+		<function-class>org.cd2h.n3c.interest.InterestIterator</function-class>
 		<function-signature>java.lang.Boolean guideDocInvestigatorExists(java.lang.String, java.lang.String)</function-signature>
-	</function>
-
-
-	<function>
-		<name>guideDocCountByPrimary</name>
-		<function-class>edu.uiowa.nihfoa.guideDoc.GuideDocIteratorByPrimary</function-class>
-		<function-signature>java.lang.String guideDocCount(java.lang.String)</function-signature>
 	</function>
 </taglib>
